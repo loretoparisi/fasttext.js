@@ -191,4 +191,3 @@ In this release `FastText.js` comes with precompiled binaries for `linux`, `macO
 
 ## Disclaimer
 For more info about `FastText` and `FastText` license see [here](https://github.com/facebookresearch/fastText).
->>>>>>> 30c59f64937a4d580ced815144ef9cc140a8c4b4
