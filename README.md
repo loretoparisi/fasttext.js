@@ -1,2 +1,2 @@
-# fasttext.js
-FastText for Node.js
+# node-fasttext
+Node wrapper for Facebook FastText
