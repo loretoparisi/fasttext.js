@@ -160,9 +160,9 @@ server is listening on 3000
 
 Try this simple server api passing a `text` parameter like:
 
-http://localhost:3000/?text=LBi%20Software%20provides%20precisely%20engineered,%20customer-focused%20#HRTECH solutions. Our flagship solution, LBi HR HelpDesk, is a SaaS #HR Case Management product.
+http://localhost:3000/?text=LBi%20Software%20provides%20precisely%20engineered,%20customer-focused%20#HRTECH
 
-http://localhost:3000/?text=Our%20Twitter%20run%20by%20the%20band%20and%20crew%20to%20give%20you%20an%20inside%20look%20into%20our%20lives%20on%20the%20road.%20Get%20#FutureHearts now: http://smarturl.it/futurehearts
+http://localhost:3000/?text=Our%20Twitter%20run%20by%20the%20band%20and%20crew%20to%20give%20you%20an%20inside%20look%20into%20our%20lives%20on%20the%20road.%20Get%20#FutureHearts
 
 The server api will response in json format
 
