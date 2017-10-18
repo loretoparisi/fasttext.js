@@ -87,24 +87,6 @@ fastText.load()
 });
 ```
 
-### Quantize
-To compress (to quantize) a already built model file you call the `FastText.quantize` API. You need to specify the model load path as `loadModel` and the file to be serialized as quantized model in `serializeTo`. Note that `serializeTo` does not need to have the file extension in. A `ftz` extension for the quantized model will be automatically added.
-
-```javascript
-var fastText = new FastText({
-    debug: true,
-    loadModel: './band_model.bin', // must specifiy filename and ext
-    serializeTo: './band_model' // do not specify ext: 'ftz' will be added
-});
-fastText.quantize()
-.then(done=> {
-    console.log("quantize done.");
-})
-.catch(error => {
-    console.error("quantize error",error);
-})
-```
-
 ## How to Run the Examples
 A folder `examples` contains several usage examples of `FastText.js`.
 ### Train example
@@ -166,22 +148,38 @@ TEXT: our twitter run by the band and crew to give you an inside look into our l
 TEXT: lbi software provides precisely engineered ,  customer-focused #hrtech solutions .  our flagship solution ,  lbi hr helpdesk ,  is a saas #hr case management product .  PREDICT: ORGANIZATION
 ```
 
-### Quantize example
+### Server example
+To run the model and serve predictions via a simple node `http` api
 
 ```
 $ cd examples/
-$ node quantize.js 
-quantize [ 'quantize',
-  '-input',
-  './data/band_model.bin',
-  '-output',
-  './data/band_model' ]
-exec:fasttext end.
-exec:fasttext exit.
-quantize done.
-task:fasttext pid:42866 terminated due to receipt of signal:null
+$ node server.js 
+model loaded
+server is listening on 3000
 ```
 
+Try this simple server api passing a `text` parameter like:
+
+http://localhost:3000/?text=LBi%20Software%20provides%20precisely%20engineered,%20customer-focused%20#HRTECH solutions. Our flagship solution, LBi HR HelpDesk, is a SaaS #HR Case Management product.
+
+http://localhost:3000/?text=Our%20Twitter%20run%20by%20the%20band%20and%20crew%20to%20give%20you%20an%20inside%20look%20into%20our%20lives%20on%20the%20road.%20Get%20#FutureHearts now: http://smarturl.it/futurehearts
+
+The server api will response in json format
+
+```
+{
+	response_time: 0.001,
+	predict: [{
+			label: "BAND",
+			score: "0.5"
+		},
+		{
+			label: "ORGANIZATION",
+			score: "0.498047"
+		}
+	]
+}
+```
 
 ## Training set and Test set format
 The `trainFile` and `testFile` are a TSV or CSV file where the fist column is the label, the second column is the text sample. `FastText.js` will try to normalize the dataset to the `FastText` format using `FastText.prepareDataset` method. You do not have to call this method explicitly by the way, `FastText.js` will do for you. For more info see [here](https://github.com/facebookresearch/fastText#text-classification).
