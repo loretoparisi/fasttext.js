@@ -9,13 +9,14 @@
 (function () {
 
     var queryString = require('querystring'),
-        FastText = require('../lib/index');
+        FastText = require('../lib/index'),
+        Util = require('../lib/util');
     
 
-    const port = 3000
+    const port = process.env.PORT || 3000;
     const http = require('http');
     const fastText = new FastText({
-        loadModel: './data/band_model.bin' // must specifiy filename and ext
+        loadModel: process.env.MODEL || './data/band_model.bin'
     });
 
     /**
@@ -27,8 +28,10 @@
         var query = request.url.split('?')[1];
         var queryObj = queryString.parse(query);
 
-        console.log(queryObj);
-
+        if( Util.empty( queryObj.text ) ) {
+            response.writeHead(400, { 'Content-Type': 'text/plain' });
+            return response.end('missing parameters');
+        }
         fastText.predict(queryObj.text)
             .then(labels => {
                 var req_end= (new Date().getTime()-req_start)/1000;
@@ -36,7 +39,7 @@
                     response_time: req_end,
                     predict: labels
                 }
-                console.log("response time:",req_end);
+                response.setHeader('Content-Type', 'application/json');
                 response.end( JSON.stringify(res, null, 2) );
             })
             .catch(error => {
