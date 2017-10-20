@@ -1,10 +1,5 @@
-# fasttext.js
-FastText for Node.js
-
-## What is FastText
-[FastText](https://github.com/facebookresearch/fastText) is a library for efficient learning of word representations and sentence classification. FastText is provided by Facebook Inc.
-
-## What is FastText.js
+## What is FastText and FastText.js
+[FastText](https://github.com/facebookresearch/fastText) is a library for efficient learning of word representations and sentence classification. FastText is provided by Facebook Inc. 
 `FastText.js` is a `JavaScript` library  that wraps `FastText` to run smoothly within `node`.
 
 ## FastText.js APIs
@@ -16,7 +11,6 @@ FastText.load
 FastText.train
 FastText.test
 FastText.predict(string)
-FastText.quantize
 ```
 
 ## How to Install
@@ -64,7 +58,7 @@ fastText.test()
 })
 ```
 
-## Predict (inference)
+## Predict
 To inference your model with new data and predict the label you must specify the model file to be loaded as `loadModel`. You can then call the `load` method once, and `predict(string)` to classify a string. Optionally you can specify the `k` most likely labels to print for each line as `predict: { precisionRecall: k }`
 
 ```javascript
@@ -87,9 +81,9 @@ fastText.load()
 });
 ```
 
-## How to Run the Examples
+## Examples
 A folder `examples` contains several usage examples of `FastText.js`.
-### Train example
+### Train
 
 ```
 $ cd examples/
@@ -123,7 +117,7 @@ train done.
 task:fasttext pid:41311 terminated due to receipt of signal:null
 ```
 
-### Test example
+### Test
 
 ```
 $ cd examples/
@@ -139,7 +133,7 @@ test done.
 task:fasttext pid:41321 terminated due to receipt of signal:null
 ```
 
-### Predict example
+### Predict
 
 ```
 $ cd examples/
@@ -148,7 +142,7 @@ TEXT: our twitter run by the band and crew to give you an inside look into our l
 TEXT: lbi software provides precisely engineered ,  customer-focused #hrtech solutions .  our flagship solution ,  lbi hr helpdesk ,  is a saas #hr case management product .  PREDICT: ORGANIZATION
 ```
 
-### Server example
+### Run a Prediction Server
 To run the model and serve predictions via a simple node `http` api
 
 ```
@@ -180,6 +174,38 @@ The server api will response in json format
 	]
 }
 ```
+
+## Language Identificaton Server
+In this example we use the fastText compressed languages model (176 languages) availalble in the full version [here](https://fasttext.cc/docs/en/language-identification.html)
+
+```
+cd examples/
+export MODEL=./data/lid.176.ftz 
+export PORT=9001
+node server
+```
+
+and then 
+
+http://localhost:9001/?text=%EB%9E%84%EB%9E%84%EB%9D%BC%20%EC%B0%A8%EC%B0%A8%EC%B0%A8%20%EB%9E%84%EB%9E%84%EB%9D%BC\n%EB%9E%84%EB%9E%84%EB%9D%BC%20%EC%B0%A8%EC%B0%A8%EC%B0%A8%20%EC%9E%A5%EC%9C%A4%EC%A0%95%20%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EC%B6%A4%EC%9D%84%20%EC%B6%A5%EC%8B%9C%EB%8B%A4
+
+that will be correctly detected as KO:
+
+```json
+{
+	"response_time": 0.001,
+	"predict": [{
+			"label": "KO",
+			"score": "1"
+		},
+		{
+			"label": "TR",
+			"score": "1.95313E-08"
+		}
+	]
+}
+```
+
 
 ## Training set and Test set format
 The `trainFile` and `testFile` are a TSV or CSV file where the fist column is the label, the second column is the text sample. `FastText.js` will try to normalize the dataset to the `FastText` format using `FastText.prepareDataset` method. You do not have to call this method explicitly by the way, `FastText.js` will do for you. For more info see [here](https://github.com/facebookresearch/fastText#text-classification).
