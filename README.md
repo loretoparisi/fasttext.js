@@ -5,7 +5,7 @@
 ## FastText.js APIs
 This version of `FastText.js` comes with the following `JavaScript` APIs
 
-```
+```javascript
 FastText.new(options)
 FastText.load
 FastText.train
@@ -15,7 +15,7 @@ FastText.predict(string)
 
 ## How to Install
 
-```
+```bash
 git clone https://github.com/loretoparisi/fasttext.js.git
 cd fasttext.js
 npm install
@@ -23,7 +23,8 @@ npm install
 
 ## Install via NPM
 `FastText.js` is available as a npm module [here](https://www.npmjs.com/package/fasttext.js). To add the package to your project
-```
+
+```bash
 npm install --save fasttext.js
 ```
 
@@ -37,7 +38,6 @@ var fastText = new FastText({
     serializeTo: './band_model',
     trainFile: './band_train.txt'
 });
-
 fastText.train()
 .then(done=> {
     console.log("train done.");
@@ -108,7 +108,7 @@ fastText.load()
 A folder `examples` contains several usage examples of `FastText.js`.
 ### Train
 
-```
+```bash
 $ cd examples/
 $ node train.js 
 train [ 'supervised',
@@ -142,7 +142,7 @@ task:fasttext pid:41311 terminated due to receipt of signal:null
 
 ### Test
 
-```
+```bash
 $ cd examples/
 $ node test.js 
 test [ 'test',
@@ -158,7 +158,7 @@ task:fasttext pid:41321 terminated due to receipt of signal:null
 
 ### Predict
 
-```
+```bash
 $ cd examples/
 $ node predict.js 
 TEXT: our twitter run by the band and crew to give you an inside look into our lives on the road .  get #futurehearts now  http //smarturl . it/futurehearts PREDICT: BAND
@@ -194,7 +194,7 @@ The `data` parameter has the following format:
 ```
 To run a training monitor example:
 
-```
+```bash
 $ cd examples/
 $ node trainmonitor.js 
 {"progress":7.3,"words":141,"lr":0.046341,"loss":4.074424,"eta":"0h0m"}
@@ -208,7 +208,7 @@ train done.
 ### Run a Prediction Server
 To run the model and serve predictions via a simple node `http` api
 
-```
+```bash
 $ cd examples/
 $ node server.js 
 model loaded
@@ -223,16 +223,16 @@ http://localhost:3000/?text=Our%20Twitter%20run%20by%20the%20band%20and%20crew%2
 
 The server api will response in json format
 
-```
+```json
 {
-	response_time: 0.001,
-	predict: [{
-			label: "BAND",
-			score: "0.5"
+	"response_time": 0.001,
+	"predict": [{
+			"label": "BAND",
+			"score": "0.5"
 		},
 		{
-			label: "ORGANIZATION",
-			score: "0.498047"
+			"label": "ORGANIZATION",
+			"score": "0.498047"
 		}
 	]
 }
@@ -241,7 +241,7 @@ The server api will response in json format
 ## Language Identificaton Server
 In this example we use the fastText compressed languages model (176 languages) availalble in the full version [here](https://fasttext.cc/docs/en/language-identification.html)
 
-```
+```bash
 cd examples/
 export MODEL=./data/lid.176.ftz 
 export PORT=9001
