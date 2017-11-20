@@ -21,6 +21,12 @@ cd fasttext.js
 npm install
 ```
 
+## Install via NPM
+`FastText.js` is available as a npm module [here](https://www.npmjs.com/package/fasttext.js). To add the package to your project
+```
+npm install --save fasttext.js
+```
+
 ## How to Use
 
 ### Train
