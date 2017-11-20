@@ -43,6 +43,7 @@ fastText.train()
 
 ### Test
 To test your model you must specificy the test set file as `testFile` and the model file to be loaded as `loadModel`. Optionally you can specificy the precision and recall at `k` (P@k and R@k) passing the object `test: { precisionRecall: k }`.
+
 ```javascript
 var fastText = new FastText({
     loadModel: './band_model.bin',
@@ -50,11 +51,27 @@ var fastText = new FastText({
 });
 
 fastText.test()
-.then(done=> {
-    console.log("test done.");
+.then(evaluation=> {
+    console.log("test done.",evaluation);
 })
 .catch(error => {
     console.error(error);
+})
+```
+
+The `evaluation` will contain the precision `P`, recall `R` and number of samples `N` as a json object `{ P: '0.278', R: '0.278' }`.
+If a train is called just before test the `evaluation` will contain the number of words `W` and the number of labels `L` as well as a json object: `{ W: 524, L: 2, N: '18', P: '0.278', R: '0.278' }`:
+
+```javascript
+fastText.train()
+.then(done=> {
+    return fastText.test();
+})
+.then(evaluation=> {
+    console.log("train & test done.",evaluation);
+})
+.catch(error => {
+    console.error("train error",error);
 })
 ```
 
@@ -140,6 +157,46 @@ $ cd examples/
 $ node predict.js 
 TEXT: our twitter run by the band and crew to give you an inside look into our lives on the road .  get #futurehearts now  http //smarturl . it/futurehearts PREDICT: BAND
 TEXT: lbi software provides precisely engineered ,  customer-focused #hrtech solutions .  our flagship solution ,  lbi hr helpdesk ,  is a saas #hr case management product .  PREDICT: ORGANIZATION
+```
+
+### Monitor Training
+To monitor the training progress define a `trainCallaback` as option:
+
+```javascript
+var trainCallback = data => {
+    if(data.progress % 20 == 0) { // every 10%
+        console.log(JSON.stringify( data ) )
+    }
+};
+var fastText = new FastText({
+    trainCallback: trainCallback,
+    serializeTo: './band_model',
+    trainFile: './band_train.txt'
+}
+```
+
+The `data` parameter has the following format:
+
+```json
+{
+    "progress": 66.3,
+    "words": 1205,
+    "lr": 0.016841,
+    "loss": 4.105764,
+    "eta": "0h0m"
+}
+```
+To run a training monitor example:
+
+```
+$ cd examples/
+$ node trainmonitor.js 
+{"progress":7.3,"words":141,"lr":0.046341,"loss":4.074424,"eta":"0h0m"}
+{"progress":28.7,"words":527,"lr":0.035649,"loss":4.10015,"eta":"0h0m"}
+{"progress":65,"words":1183,"lr":0.017517,"loss":4.10566,"eta":"0h0m"}
+{"progress":74.2,"words":1338,"lr":0.012889,"loss":4.106447,"eta":"0h0m"}
+{"progress":95.9,"words":1722,"lr":0.002067,"loss":4.1079,"eta":"0h0m"}
+train done.
 ```
 
 ### Run a Prediction Server

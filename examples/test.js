@@ -18,8 +18,8 @@ var fastText = new FastText({
 });
 
 fastText.test()
-.then(done=> {
-    console.log("test done.");
+.then(evaluation=> {
+    console.log("test done.",evaluation);
 })
 .catch(error => {
     console.error("test error",error);

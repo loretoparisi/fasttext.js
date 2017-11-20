@@ -11,8 +11,16 @@
 var DATA_ROOT='./data';
 var FastText = require('../lib/index');
 
+var trainCallback = data => {
+    console.log(JSON.stringify( data ) )
+    if(data.progress % 20 == 0) { // every 10%
+        console.log(JSON.stringify( data ) )
+    }
+};
+
 var fastText = new FastText({
-    debug: true,
+    debug: false,
+    trainCallback: trainCallback,
     train: {
         // number of concurrent threads
         thread: 8,
@@ -37,7 +45,7 @@ var fastText = new FastText({
         // size of the context window [5]
         ws: process.env.TRAIN_WS || 5,
         //  number of epochs [5]
-        epoch: process.env.TRAIN_EPOCH || 5,
+        epoch: process.env.TRAIN_EPOCH || 20,
         // number of buckets [2000000]
         bucket: process.env.TRAIN_BUCKET || 2000000,
         // min length of char ngram [3]

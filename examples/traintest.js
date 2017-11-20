@@ -48,12 +48,18 @@ var fastText = new FastText({
         t: 0.0001
     },
     serializeTo: DATA_ROOT + '/band_model', // do not specify ext: 'bin' will be added
-    trainFile: DATA_ROOT + '/band_train.txt'
+    loadModel: DATA_ROOT + '/band_model.bin', // model to load
+    trainFile: DATA_ROOT + '/band_train.txt', // train file
+    testFile: DATA_ROOT + '/band_test.txt' // test file
 });
 
 fastText.train()
 .then(done=> {
     console.log("train done.");
+    return fastText.test();
+})
+.then(evaluation=> {
+    console.log("test done.",evaluation);
 })
 .catch(error => {
     console.error("train error",error);

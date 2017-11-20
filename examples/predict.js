@@ -29,6 +29,9 @@ fastText.load()
     console.log("TEXT:", sample, "\nPREDICT:",labels );
     fastText.unload();
 })
+.then(done => {
+    console.log("model unloaded.");
+})
 .catch(error => {
     console.error("predict error",error);
 });
