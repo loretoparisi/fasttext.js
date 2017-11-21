@@ -1,7 +1,7 @@
 {
   "name": "fasttext.js",
   "description": "Node.js FastText",  
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/loretoparisi/fasttext.js/wiki/FastText.js",
   "author": {
     "name": "Loreto Parisi",
