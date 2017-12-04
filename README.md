@@ -40,10 +40,10 @@ docker build -t fasttext.js .
 docker run --rm -it -p 3000:3000 fasttext.js node fasttext.js/examples/server.js 
 ```
 
-To serve a different model a volume can be used and passing the `MODEL` environment variable
+To serve a different custom model a volume can be used and passing the `MODEL` environment variable
 
 ```bash
-docker run -v /models/:/models --rm -it -p 3000:3000 -e MODEL=/models/gender.bin fasttext.js node fasttext.js/examples/server.js 
+docker run -v /models/:/models --rm -it -p 3000:3000 -e MODEL=/models/my_model.bin fasttext.js node fasttext.js/examples/server.js 
 
 ```
 
