@@ -28,6 +28,25 @@ npm install
 npm install --save fasttext.js
 ```
 
+## Install via Docker
+Build the docker image 
+```bash
+docker build -t fasttext.js .
+```
+
+Now running the image on the docker host binding the port 3000 it is possibile to run the server example:
+```bash
+docker build -t fasttext.js .
+docker run --rm -it -p 3000:3000 fasttext.js node fasttext.js/examples/server.js 
+```
+
+To serve a different model a volume can be used and passing the `MODEL` environment variable
+
+```bash
+docker run -v /models/:/models --rm -it -p 3000:3000 -e MODEL=/models/gender.bin fasttext.js node fasttext.js/examples/server.js 
+
+```
+
 ## How to Use
 
 ### Train
