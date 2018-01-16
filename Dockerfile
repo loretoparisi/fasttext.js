@@ -35,7 +35,7 @@ RUN \
 
 # build fasttext.js
 RUN \ 
-    git clone https://github.com/loretoparisi/fasttext.js && \
+    git clone --depth=1 https://github.com/loretoparisi/fasttext.js && \
     cd fasttext.js && \
     npm install
 
