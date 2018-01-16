@@ -34,6 +34,8 @@ Build the docker image
 docker build -t fasttext.js .
 ```
 
+This will update the latest `FastText` linux binaries from source to `lib/bin/linux`.
+
 Now running the image on the docker host binding the port 3000 it is possibile to run the server example:
 ```bash
 docker build -t fasttext.js .

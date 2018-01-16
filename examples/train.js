@@ -8,7 +8,7 @@
 
 (function() {
 
-var DATA_ROOT='./data';
+var DATA_ROOT=__dirname+'/data';
 var FastText = require('../lib/index');
 
 var fastText = new FastText({

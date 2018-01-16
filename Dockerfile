@@ -16,6 +16,8 @@ WORKDIR $HOME
 # packages list
 RUN \
 	apt-get update && apt-get install -y \
+    autoconf \
+    automake \
     curl \
     git \
     npm
@@ -25,7 +27,19 @@ RUN npm install n -g
 RUN n $NODE_VERSION
 RUN npm update
 
-# fasttext.js
-RUN git clone https://github.com/loretoparisi/fasttext.js
+# build native fasttext
+RUN \
+	git clone https://github.com/facebookresearch/fastText.git && \
+	cd fastText && \
+	make
+
+# build fasttext.js
+RUN \ 
+    git clone https://github.com/loretoparisi/fasttext.js && \
+    cd fasttext.js && \
+    npm install
+
+# copy binaries
+RUN cp fastText/fasttext fasttext.js/lib/bin/linux/
     
 CMD ["bash"]
