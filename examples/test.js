@@ -9,12 +9,16 @@
 (function() {
 
 var DATA_ROOT=__dirname+'/data';
+
+var TESTFILE = process.env.TESTFILE || DATA_ROOT + '/band_test.txt' // test file
+var MODEL= process.env.MODEL || DATA_ROOT + '/band_model.bin' // model to load
+
 var FastText = require('../lib/index');
 
 var fastText = new FastText({
     debug: true,
-    loadModel: DATA_ROOT + '/band_model.bin',
-    testFile: DATA_ROOT + '/band_test.txt'
+    loadModel: MODEL,
+    testFile: TESTFILE
 });
 
 fastText.test()

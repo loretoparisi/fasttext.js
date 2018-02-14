@@ -9,8 +9,13 @@
 (function() {
 
 var DATA_ROOT=__dirname+'/data';
-var FastText = require('../lib/index');
 
+var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/band_train.txt' // train file
+var TESTFILE = process.env.TESTFILE || DATA_ROOT + '/band_test.txt' // test file
+var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/band_model' // do not specify ext: 'bin' will be added
+var MODEL= process.env.MODEL || DATA_ROOT + '/band_model.bin' // model to load
+
+var FastText = require('../lib/index');
 var fastText = new FastText({
     debug: true,
     train: {
@@ -21,7 +26,7 @@ var fastText = new FastText({
         // number of negatives sampled [5]
         neg: 5,
         // loss function {ns, hs, softmax} [ns]
-        loss: 'ns',
+        loss: process.env.TRAIN_LOSS || 'ns',
         // learning rate [0.05]
         lr: process.env.TRAIN_LR || 0.05,
         // change the rate of updates for the learning rate [100]
@@ -41,16 +46,16 @@ var fastText = new FastText({
         // number of buckets [2000000]
         bucket: process.env.TRAIN_BUCKET || 2000000,
         // min length of char ngram [3]
-        minn: 3,
+        minn: process.env.TRAIN_MINN || 2,
         // max length of char ngram [6]
-        maxn: 6,
+        maxn: process.env.TRAIN_MAXN || 4,
         // sampling threshold [0.0001]
         t: 0.0001
     },
-    serializeTo: DATA_ROOT + '/band_model', // do not specify ext: 'bin' will be added
-    loadModel: DATA_ROOT + '/band_model.bin', // model to load
-    trainFile: DATA_ROOT + '/band_train.txt', // train file
-    testFile: DATA_ROOT + '/band_test.txt' // test file
+    serializeTo: SERIALIZETO,
+    loadModel: MODEL,
+    trainFile: TRAINFILE,
+    testFile: TESTFILE
 });
 
 fastText.train()
