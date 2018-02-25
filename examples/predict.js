@@ -12,17 +12,17 @@ var DATA_ROOT=__dirname+'/data';
 
 var FastText = require('../lib/index');
 var fastText = new FastText({
-    loadModel: DATA_ROOT + '/band_model.bin' // must specifiy filename and ext
+    loadModel: DATA_ROOT + '/sms_model.bin' // must specifiy filename and ext
 });
 
-var sample="Our Twitter run by the band and crew to give you an inside look into our lives on the road. Get #FutureHearts now: http://smarturl.it/futurehearts";
+var sample="You have won a phone! Please apply now!";
 fastText.load()
 .then(done => {
     return fastText.predict(sample);
 })
 .then(labels=> {
     console.log("TEXT:", sample, "\nPREDICT:",labels );
-    sample="LBi Software provides precisely engineered, customer-focused #HRTECH solutions. Our flagship solution, LBi HR HelpDesk, is a SaaS #HR Case Management product.";
+    sample="Hi John this is Scott, please call me back";
     return fastText.predict(sample);
 })
 .then(labels=> {

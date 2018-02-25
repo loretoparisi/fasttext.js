@@ -1,7 +1,7 @@
 /**
  * FastText.js
  * @author Loreto Parisi (loretoparisi at gmail dot com)
- * @copyright Copyright (c) 2017 Loreto Parisi
+ * @copyright Copyright (c) 2017-2018 Loreto Parisi
 */
 
 "use strict";
@@ -10,12 +10,18 @@
 
     var DATA_ROOT = __dirname + '/data';
 
-    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/sms_train.tsv'
-    var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/sms_model' // do not specify ext: 'bin' will be added
+    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/sms.tsv' // train file
+    var SERIALIZETO_W2V = process.env.SERIALIZETO_W2V || DATA_ROOT + '/sms_model_w2v' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');
     var fastText = new FastText({
         debug: true,
+        serializeToW2V: SERIALIZETO_W2V,
+        trainFile: TRAINFILE,
+        word2vec: {
+            // words representation model
+            model: process.env.W2V_MODEL || 'skipgram',
+        },
         train: {
             // number of concurrent threads
             thread: 8,
@@ -42,25 +48,26 @@
             //  number of epochs [5]
             epoch: process.env.TRAIN_EPOCH || 5,
             // number of buckets [2000000]
-            bucket: process.env.TRAIN_BUCKET || 2000000,
+            bucket: 2000000,
             // min length of char ngram [3]
-            minn: process.env.TRAIN_MINN || 2,
+            minn: process.env.TRAIN_MINN || 3,
             // max length of char ngram [6]
-            maxn: process.env.TRAIN_MAXN || 4,
+            maxn: process.env.TRAIN_MAXN || 6,
             // sampling threshold [0.0001]
-            t: 0.0001,
-            pretrainedVectors: process.env.WORD2VEC || ''
-        },
-        serializeTo: SERIALIZETO,
-        trainFile: TRAINFILE
+            t: 0.0001
+        }
     });
 
-    fastText.train()
+    fastText.word2vec()
         .then(done => {
-            console.log("train done.");
+            console.log("Train ended\nlabels", fastText.getLabels());
+            return fastText.unload();
+        })
+        .then(done => {
+            console.log("model unloaded.");
         })
         .catch(error => {
-            console.error("train error", error);
+            console.error("Train error", error);
         })
 
 }).call(this);

@@ -7,10 +7,13 @@ This version of `FastText.js` comes with the following `JavaScript` APIs
 
 ```javascript
 FastText.new(options)
-FastText.load
-FastText.train
-FastText.test
+FastText.load()
+FastText.loadnn() [NEW API]
+FastText.word2vec() [NEW API]
+FastText.train()
+FastText.test()
 FastText.predict(string)
+FastText.nn() [NEW API]
 ```
 
 ## How to Install
@@ -21,14 +24,14 @@ cd fasttext.js
 npm install
 ```
 
-## Install via NPM
+### Install via NPM
 `FastText.js` is available as a npm module [here](https://www.npmjs.com/package/fasttext.js). To add the package to your project
 
 ```bash
 npm install --save fasttext.js
 ```
 
-## Install via Docker
+### Install via Docker
 Build the docker image 
 ```bash
 docker build -t fasttext.js .
@@ -52,7 +55,49 @@ docker run -v /models/:/models --rm -it -p 3000:3000 -e MODEL=/models/my_model.b
 ## How to Use
 
 ### Train
-To train the model you must specificy the training set as `trainFile` and the file where the model must be serialized as `serializeTo`. All the `FastText` supervised options are supported. See [here](https://github.com/facebookresearch/fastText#full-documentation) for more details about training options. Note that `serializeTo` does not need to have the file extension in. A `bin` extension for the quantized model will be automatically added.
+You can specify all the train parameters supported by fastText as a json object
+
+```javascript
+train: {
+    // number of concurrent threads
+    thread: 8,
+    // verbosity level [2]
+    verbose: 4,
+    // number of negatives sampled [5]
+    neg: 5,
+    // loss function {ns, hs, softmax} [ns]
+    loss: process.env.TRAIN_LOSS || 'ns',
+    // learning rate [0.05]
+    lr: process.env.TRAIN_LR || 0.05,
+    // change the rate of updates for the learning rate [100]
+    lrUpdateRate: 100,
+    // max length of word ngram [1]
+    wordNgrams: process.env.TRAIN_NGRAM || 1,
+    // minimal number of word occurences
+    minCount: 1,
+    // minimal number of word occurences
+    minCountLabel: 1,
+    // size of word vectors [100]
+    dim: process.env.TRAIN_DIM || 100,
+    // size of the context window [5]
+    ws: process.env.TRAIN_WS || 5,
+    //  number of epochs [5]
+    epoch: process.env.TRAIN_EPOCH || 5,
+    // number of buckets [2000000]
+    bucket: 2000000,
+    // min length of char ngram [3]
+    minn: process.env.TRAIN_MINN || 3,
+    // max length of char ngram [6]
+    maxn: process.env.TRAIN_MAXN || 6,
+    // sampling threshold [0.0001]
+    t: 0.0001,
+    // load pre trained word vectors from unsupervised model
+    pretrainedVectors: process.env.WORD2VEC || ''
+    }
+```
+
+#### Train Supervised
+To train the model you must specificy the training set as `trainFile` and the file where the model must be serialized as `serializeTo`. All the `FastText` supervised options are supported. See [here](https://github.com/facebookresearch/fastText#full-documentation) for more details about training options. Note that `serializeTo` does not need to have the file extension in. A `bin` extension for the quantized model will be automatically added. You can use the `pretrainedVectors` option to load an unsupervised pre-trained model. Please use the `word2vec` api to train this model.
 
 ```javascript
 var fastText = new FastText({
@@ -68,6 +113,18 @@ fastText.train()
 })
 ```
 
+#### Train Unsupervised
+To train an unsupervised model use the `word2vec` api. You can specify the words representation to train using `word2vec.model` parameter set to `skipgram` or `cbow` and use the `train` parameters as usual:
+
+```javascript
+fastText.word2vec()
+    .then(done => {
+    })
+    .catch(error => {
+        console.error("Train error", error);
+    })
+```
+
 ### Test
 To test your model you must specificy the test set file as `testFile` and the model file to be loaded as `loadModel`. Optionally you can specificy the precision and recall at `k` (P@k and R@k) passing the object `test: { precisionRecall: k }`.
 
@@ -76,7 +133,6 @@ var fastText = new FastText({
     loadModel: './band_model.bin',
     testFile:  './band_test.txt'
 });
-
 fastText.test()
 .then(evaluation=> {
     console.log("test done.",evaluation);
@@ -102,7 +158,7 @@ fastText.train()
 })
 ```
 
-## Predict
+### Predict
 To inference your model with new data and predict the label you must specify the model file to be loaded as `loadModel`. You can then call the `load` method once, and `predict(string)` to classify a string. Optionally you can specify the `k` most likely labels to print for each line as `predict: { precisionRecall: k }`
 
 ```javascript
@@ -122,6 +178,22 @@ fastText.load()
 })
 .catch(error => {
     console.error(error);
+});
+```
+
+### Nearest Neighbor
+To get the nearest neighbor words for a given term use the `nn` api:
+
+```javascript
+fastText.loadnn()
+.then(labels=> {
+    return fastText.nn(text)
+})
+.then(labels=> {
+    console.log("Nearest Neighbor\n", JSON.stringify(labels, null, 2));
+})
+.catch(error => {
+    console.error("predict error",error);
 });
 ```
 
@@ -184,46 +256,6 @@ $ cd examples/
 $ node predict.js 
 TEXT: our twitter run by the band and crew to give you an inside look into our lives on the road .  get #futurehearts now  http //smarturl . it/futurehearts PREDICT: BAND
 TEXT: lbi software provides precisely engineered ,  customer-focused #hrtech solutions .  our flagship solution ,  lbi hr helpdesk ,  is a saas #hr case management product .  PREDICT: ORGANIZATION
-```
-
-### Monitor Training
-To monitor the training progress define a `trainCallaback` as option:
-
-```javascript
-var trainCallback = data => {
-    if(data.progress % 20 == 0) { // every 10%
-        console.log(JSON.stringify( data ) )
-    }
-};
-var fastText = new FastText({
-    trainCallback: trainCallback,
-    serializeTo: './band_model',
-    trainFile: './band_train.txt'
-}
-```
-
-The `data` parameter has the following format:
-
-```json
-{
-    "progress": 66.3,
-    "words": 1205,
-    "lr": 0.016841,
-    "loss": 4.105764,
-    "eta": "0h0m"
-}
-```
-To run a training monitor example:
-
-```bash
-$ cd examples/
-$ node trainmonitor.js 
-{"progress":7.3,"words":141,"lr":0.046341,"loss":4.074424,"eta":"0h0m"}
-{"progress":28.7,"words":527,"lr":0.035649,"loss":4.10015,"eta":"0h0m"}
-{"progress":65,"words":1183,"lr":0.017517,"loss":4.10566,"eta":"0h0m"}
-{"progress":74.2,"words":1338,"lr":0.012889,"loss":4.106447,"eta":"0h0m"}
-{"progress":95.9,"words":1722,"lr":0.002067,"loss":4.1079,"eta":"0h0m"}
-train done.
 ```
 
 ### Run a Prediction Server
