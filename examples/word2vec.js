@@ -32,7 +32,7 @@
             // loss function {ns, hs, softmax} [ns]
             loss: process.env.TRAIN_LOSS || 'ns',
             // learning rate [0.05]
-            lr: process.env.TRAIN_LR || 0.05,
+            lr: process.env.TRAIN_LR || 0.01,
             // change the rate of updates for the learning rate [100]
             lrUpdateRate: 100,
             // max length of word ngram [1]
@@ -42,7 +42,7 @@
             // minimal number of word occurences
             minCountLabel: 1,
             // size of word vectors [100]
-            dim: process.env.TRAIN_DIM || 100,
+            dim: process.env.TRAIN_DIM || 10,
             // size of the context window [5]
             ws: process.env.TRAIN_WS || 5,
             //  number of epochs [5]
