@@ -8,4 +8,8 @@
 COL=$1
 INFILE=$2
 OUTFILE=$3
-sort -k$COL -nr $INFILE > $OUTFILE
+SEP=$4
+
+# we set default lang output encoding
+# bug: passing $'$SEP' not working
+LC_ALL='C' sort -t $'\t' -k$COL -nr $INFILE > $OUTFILE
