@@ -263,6 +263,7 @@ To run the model and serve predictions via a simple node `http` api
 
 ```bash
 $ cd examples/
+$ export MODEL=data/lid.176.ftz
 $ node server.js 
 model loaded
 server is listening on 3000
