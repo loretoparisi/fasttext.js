@@ -41,5 +41,8 @@ RUN \
 
 # copy binaries
 RUN cp fastText/fasttext fasttext.js/lib/bin/linux/
+
+# run train
+RUN node fasttext.js/examples/train.js
     
 CMD ["bash"]
