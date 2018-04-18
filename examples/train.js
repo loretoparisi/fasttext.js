@@ -10,8 +10,8 @@
 
     var DATA_ROOT = __dirname + '/data';
 
-    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/sms_train.tsv'
-    var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/sms_model' // do not specify ext: 'bin' will be added
+    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/band_train.txt'
+    var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/band_model' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');
     var fastText = new FastText({
