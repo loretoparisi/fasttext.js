@@ -14,6 +14,8 @@
     
 
     const port = process.env.PORT || 3000;
+    const host = process.env.HOST || '0.0.0.0';
+
     const http = require('http');
     const fastText = new FastText({
         loadModel: process.env.MODEL || __dirname+'/data/band_model.bin'
@@ -54,7 +56,7 @@
     fastText.load()
     .then(done => {
         console.log("model loaded");
-        server.listen(port, (error) => {
+        server.listen(port, host, (error) => {
             if (error) {
                 console.error(error);
             }

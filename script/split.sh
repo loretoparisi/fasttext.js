@@ -10,7 +10,7 @@ DS=$1
 DEST=$2
 PERC=$3
 
-if [ -z '$PERC' ]; then
+if [ -z "$PERC" ]; then
 PERC=80
 fi
 
