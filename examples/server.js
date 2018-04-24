@@ -18,7 +18,7 @@
 
     const http = require('http');
     const fastText = new FastText({
-        loadModel: process.env.MODEL || __dirname+'/data/band_model.bin'
+        loadModel: process.env.MODEL || __dirname+'/data/sms_model.bin'
     });
 
     /**
