@@ -125,6 +125,62 @@ fastText.word2vec()
     })
 ```
 
+## Track Progress
+It is possible to track the training progress using the callback parameters `trainProgress` in the options:
+
+```javascript
+{
+    trainCallback: function(res) {
+        console.log( "\t"+JSON.stringify(res) );
+    }
+}
+```
+
+This will print out the training progress in the following format:
+
+```json
+{
+    "progress":17.2,
+    "words":174796,
+    "lr":0.041382,
+    "loss":1.232538,
+    "eta":"0h0m",
+    "eta_msec":0
+}
+```
+
+that is the parsed JSON representation of `fasttext` output 
+
+```
+Progress:  17.2% words/sec/thread:  174796 lr:  0.041382 loss:  1.232538 ETA:   0h 0m
+```
+
+where `eta_msec` represents the ETA (estimated time of arrival) in milliseconds.
+
+So a typical progress will fire the `trainCallback` several times like
+
+```json
+{"progress":0.6,"loss":4.103271,"lr":0.0498,"words":21895,"eta":"0h9m","eta_msec":540000}
+{"progress":0.6,"loss":3.927083,"lr":0.049695,"words":21895,"eta":"0h6m","eta_msec":360000}
+{"progress":0.6,"loss":3.927083,"lr":0.049695,"words":21895,"eta":"0h6m","eta_msec":360000}
+{"progress":0.6,"loss":3.676603,"lr":0.049611,"words":26813,"eta":"0h5m","eta_msec":300000}
+{"progress":0.6,"loss":3.676603,"lr":0.049611,"words":26813,"eta":"0h5m","eta_msec":300000}
+{"progress":0.6,"loss":3.345654,"lr":0.04949,"words":33691,"eta":"0h4m","eta_msec":240000}
+{"progress":1.2,"loss":3.345654,"lr":0.04949,"words":39604,"eta":"0h4m","eta_msec":240000}
+```
+
+Until the progress will reach 100%:
+
+```json
+{"progress":99,"loss":0.532964,"lr":0.000072,"words":159556,"eta":"0h0m","eta_msec":0}
+{"progress":99,"loss":0.532964,"lr":0.000072,"words":159556,"eta":"0h0m","eta_msec":0}
+{"progress":99,"loss":0.532392,"lr":-0.000002,"words":159482,"eta":"0h0m","eta_msec":0}
+{"progress":100,"loss":0.532392,"lr":0,"words":159406,"eta":"0h0m","eta_msec":0}
+{"progress":100,"loss":0.532392,"lr":0,"words":159406,"eta":"0h0m","eta_msec":0}
+```
+
+__NOTE__. Please note that some approximation errors may occur in the output values.
+
 ### Test
 To test your model you must specificy the test set file as `testFile` and the model file to be loaded as `loadModel`. Optionally you can specificy the precision and recall at `k` (P@k and R@k) passing the object `test: { precisionRecall: k }`.
 

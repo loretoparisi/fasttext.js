@@ -54,7 +54,6 @@
         },
         serializeTo: SERIALIZETO,
         trainFile: TRAINFILE,
-        // @TODO: experimental
         trainCallback: function(res) {
             console.log( "\t"+JSON.stringify(res) );
         }
