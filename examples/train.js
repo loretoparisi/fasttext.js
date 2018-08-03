@@ -14,6 +14,7 @@
     var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/sms_model' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');
+
     var fastText = new FastText({
         debug: true,
         train: {
@@ -26,7 +27,7 @@
             // loss function {ns, hs, softmax} [ns]
             loss: process.env.TRAIN_LOSS || 'ns',
             // learning rate [0.05]
-            lr: process.env.TRAIN_LR || 0.05,
+            lr: process.env.TRAIN_LR || 0.01,
             // change the rate of updates for the learning rate [100]
             lrUpdateRate: 100,
             // max length of word ngram [1]
@@ -36,11 +37,11 @@
             // minimal number of word occurences
             minCountLabel: 1,
             // size of word vectors [100]
-            dim: process.env.TRAIN_DIM || 100,
+            dim: process.env.TRAIN_DIM || 200,
             // size of the context window [5]
             ws: process.env.TRAIN_WS || 5,
             //  number of epochs [5]
-            epoch: process.env.TRAIN_EPOCH || 5,
+            epoch: process.env.TRAIN_EPOCH || 20,
             // number of buckets [2000000]
             bucket: process.env.TRAIN_BUCKET || 2000000,
             // min length of char ngram [3]
@@ -55,7 +56,7 @@
         trainFile: TRAINFILE,
         // @TODO: experimental
         trainCallback: function(res) {
-            console.log(res);
+            console.log( "\t"+JSON.stringify(res) );
         }
     });
 
