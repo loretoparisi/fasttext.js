@@ -2,6 +2,34 @@
 [FastText](https://github.com/facebookresearch/fastText) is a library for efficient learning of word representations and sentence classification. FastText is provided by Facebook Inc. 
 `FastText.js` is a `JavaScript` library  that wraps `FastText` to run smoothly within `node`.
 
+# Table of Contents
+- [FastText.js APIs](https://github.com/loretoparisi/fasttext.js#fasttextjs-apis)
+- [How to Install](https://github.com/loretoparisi/fasttext.js#how-to-install)
+	* [Install via NPM](https://github.com/loretoparisi/fasttext.js#install-via-npm)
+	* [Install via Docker](https://github.com/loretoparisi/fasttext.js#install-via-docker)
+- [How to Use](https://github.com/loretoparisi/fasttext.js#how-to-use)
+	* [Train](https://github.com/loretoparisi/fasttext.js#train)
+	* [Train Supervised](https://github.com/loretoparisi/fasttext.js#train-supervised)
+	* [Train Unsupervised](https://github.com/loretoparisi/fasttext.js#train-unsupervised)
+	* [Track Progress](https://github.com/loretoparisi/fasttext.js#track-progress)
+	* [Test](https://github.com/loretoparisi/fasttext.js#test)
+	* [Predict](https://github.com/loretoparisi/fasttext.js#predict)
+	* [Nearest Neighbor](https://github.com/loretoparisi/fasttext.js#nearest-neighbor)
+– [Tools](https://github.com/loretoparisi/fasttext.js#tools)
+	* [Confusion Matrix](https://github.com/loretoparisi/fasttext.js#confusion-matrix)
+- [Examples](https://github.com/loretoparisi/fasttext.js#examples)
+	* [Train](https://github.com/loretoparisi/fasttext.js#train-1)
+	* [Test](https://github.com/loretoparisi/fasttext.js#test-1)
+	* [Predict](https://github.com/loretoparisi/fasttext.js#predict-1)
+	* [Run a Prediction Server](https://github.com/loretoparisi/fasttext.js#run-a-prediction-server)
+	* [Language Identification Server](https://github.com/loretoparisi/fasttext.js#language-identificaton-server)
+- [Training set and Test set format](https://github.com/loretoparisi/fasttext.js#training-set-and-test-set-format)
+- [Other Versions](https://github.com/loretoparisi/fasttext.js#other-versions)
+– [Supported Platforms](https://github.com/loretoparisi/fasttext.js#supported-platforms)
+	* [External Binary](https://github.com/loretoparisi/fasttext.js#external-binary)
+– [How It Works](https://github.com/loretoparisi/fasttext.js#how-it-works)
+– [Disclaimer](https://github.com/loretoparisi/fasttext.js#disclaimer)
+
 ## FastText.js APIs
 This version of `FastText.js` comes with the following `JavaScript` APIs
 
@@ -302,8 +330,6 @@ and and visualize it using `matplotlib`:
 
 <img width="647" alt="schermata 2018-08-06 alle 11 36 52" src="https://user-images.githubusercontent.com/163333/43709499-501b6084-996d-11e8-8537-9f1a0b6434f1.png">
 
-
-
 ## Examples
 A folder `examples` contains several usage examples of `FastText.js`.
 ### Train
@@ -399,7 +425,7 @@ The server api will response in json format
 }
 ```
 
-## Language Identificaton Server
+### Language Identificaton Server
 In this example we use the fastText compressed languages model (176 languages) availalble in the full version [here](https://fasttext.cc/docs/en/language-identification.html)
 
 ```bash
@@ -436,6 +462,7 @@ The `trainFile` and `testFile` are a TSV or CSV file where the fist column is th
 ## Other Versions
 - [FastText Python Package](https://pypi.python.org/pypi/fasttext)
 - [FastText for Windows](http://cs.mcgill.ca/~mxia3/FastText-for-Windows/)
+- [Nodejs binding for fasttext representation and classification.](https://github.com/vunb/node-fasttext)
 
 ## Supported Platforms
 In this release `FastText.js` comes with precompiled binaries for `linux`, `macOS` and `Windows` in the `lib/bin/` folder. The Windows version is a 64-bit compiled version. It requires the [Visual C++ Redistributable for Visual Studio 2015](http://www.microsoft.com/en-us/download/details.aspx?id=48145) components. See [here](http://cs.mcgill.ca/~mxia3/FastText-for-Windows/) for more info about the Windows version.
@@ -449,7 +476,7 @@ var fastText = new FastText({
 });
 ```
 
-A `executable not found in path` error will be thrown if the executable has not been found in path.
+A `executable not found in path` error will be thrown if the executable has not been found in the specified path.
 
 ## How It Works
 Precompiled binaries runs `FastText` natively. A node `child_process` spawn will fork a new `FastText` native process tu run at OS speed, manage the state, the errors and the output of the process to the JavaScript API.
