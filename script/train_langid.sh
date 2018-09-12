@@ -17,9 +17,16 @@ if [ ! -f $FOLDER/sentences.tar ]; then
     # let's download the training data:
     wget http://downloads.tatoeba.org/exports/sentences.tar.bz2 -P $FOLDER
     bunzip2 $FOLDER/sentences.tar.bz2
-    tar xvf $FOLDER/sentences.tar
+    tar xvf $FOLDER/sentences.tar -C $FOLDER
 else
     echo $FOLDER/sentences.tar downloaded already!
+
+    if [ ! -f $FOLDER/sentences.csv ]; then
+        echo $FOLDER/sentences.tar extracting...
+        tar xvf $FOLDER/sentences.tar -C $FOLDER
+    else
+        echo $FOLDER/sentences.csv present already!
+    fi
 fi
 
 echo Converting to fasttext format...
