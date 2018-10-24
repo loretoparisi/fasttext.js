@@ -244,7 +244,7 @@ fastText.train()
 ```
 
 ### Test-Labels
-:new: The api `testLabels` evaluate labels `F1-Score`, `Accuracy` and `Precision` for each label in the model.
+:new: The api `testLabels` evaluate labels `F1-Score`, `Recall` and `Precision` for each label in the model.
 
 ```javascript
 var fastText = new FastText({
@@ -258,6 +258,27 @@ fastText.testLabels()
 .catch(error => {
     console.error(error);
 })
+```
+
+This will print out the values `F1`, `P` and `R` for each label.
+
+```json
+[
+  {
+    "ham": {
+      "F1": "0.172414",
+      "P": "0.094340",
+      "R": "1.000000"
+    }
+  },
+  {
+    "spam": {
+      "F1": "0.950495",
+      "P": "0.905660",
+      "R": "1.000000"
+    }
+  }
+]
 ```
 
 ### Predict
