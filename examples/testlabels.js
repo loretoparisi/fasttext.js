@@ -27,7 +27,7 @@ var fastText = new FastText({
 fastText.testLabels()
 .then(evaluation=> {
     console.log("labels:", fastText.getLabels());
-    console.log("test-labels:",evaluation);
+    console.log("test-labels:",JSON.stringift(evaluation,null,2));
 })
 .catch(error => {
     console.error("test error",error);
