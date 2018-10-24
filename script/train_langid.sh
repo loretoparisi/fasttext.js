@@ -32,6 +32,13 @@ fi
 echo Converting to fasttext format...
 # Then, we need to put our training data into fastText format, which is easily done using:
 # on macos `shuf`` needs `brew install coreutils``
+# this will print out a label in the ISO-639-2 format codes:
+#
+# __label__jpn 家を出ようとしていたら、トムから電話がかかってきた。
+# __label__spa No se atrevió a aparecerse allí nunca más.
+#
+# while current pre-trained model has a ISO-639-1 labels e.g. "JA", "SP" codes
+#
 awk -F"\t" '{print"__label__"$2" "$3}' < $FOLDER/sentences.csv | myshuf > $FOLDER/lang_all.txt
 
 echo Splitting into train and test set...

@@ -1,0 +1,70 @@
+<!doctype html>
+
+<head>
+        <script src="https://cdn.jsdelivr.net/npm/vega@4.2.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.6.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.18.1"></script>
+</head>
+<style>
+    body {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        margin-top: 50px;
+        margin-left: 50px;
+        width: 80%;
+    }
+
+    .vertical-sections {
+        border: 1px solid #AAA;
+        padding: 6px;
+        margin: 6px;
+    }
+
+    .horizontal-sections {
+        display: inline-block;
+        padding-right: 20px;
+        vertical-align: top;
+    }
+</style>
+
+<body>
+    <div class="horizontal-sections">
+        <div class="canvases" id="loss-canvas"></div>
+    </div>
+    <script>
+        /**
+         * Plot loss
+         * @uses Vega Embed - https://github.com/vega/vega-embed
+         * @see https://bl.ocks.org/domoritz/455e1c7872c4b38a58b90df0c3d7b1b9
+         */
+        function plotLossValues(lossValues) {
+            vegaEmbed(
+                '#loss-canvas', {
+                    '$schema': 'https://vega.github.io/schema/vega-lite/v2.json',
+                    'data': { 'values': lossValues },
+                    'mark': 'line',
+                    'encoding': {
+                        'x': { 'field': 'batch', 'type': 'ordinal' },
+                        'y': { 'field': 'loss', 'type': 'quantitative' },
+                        'color': { 'field': 'split', 'type': 'nominal' }
+                    },
+                    'width': 300,
+                },
+                {
+                    defaultStyle: true
+                }
+            ).then(function(result) {
+                    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        }
+        var lossValues=[];
+        lossValues.push(
+            {'batch': 1, 'loss': 0.9, 'split': 'validation'},
+            {'batch': 2, 'loss': 0.95, 'split': 'validation'},
+            {'batch': 3, 'loss': 0.74, 'split': 'training'},
+            {'batch': 4, 'loss': 0.71, 'split': 'training'},
+            {'batch': 5, 'loss': 0.86, 'split': 'validation'},
+            {'batch': 6, 'loss': 0.44, 'split': 'training'}
+        );
+        plotLossValues(lossValues);
+    </script>
+</body>
