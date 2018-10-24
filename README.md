@@ -258,6 +258,7 @@ fastText.testLabels()
 .catch(error => {
     console.error(error);
 })
+```
 
 ### Predict
 To inference your model with new data and predict the label you must specify the model file to be loaded as `loadModel`. You can then call the `load` method once, and `predict(string)` to classify a string. Optionally you can specify the `k` most likely labels to print for each line as `predict: { precisionRecall: k }`
