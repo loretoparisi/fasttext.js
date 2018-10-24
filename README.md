@@ -16,10 +16,11 @@
 	* [Predict](https://github.com/loretoparisi/fasttext.js#predict)
 	* [Nearest Neighbor](https://github.com/loretoparisi/fasttext.js#nearest-neighbor)
 – [Tools](https://github.com/loretoparisi/fasttext.js#tools)
-	* [Confusion Matrix](https://github.com/loretoparisi/fasttext.js#confusion-matrix)
+	* [Confusion Matrix](https://github.com/loretoparisi/fasttext.js#confusion-matrix) :new:
 - [Examples](https://github.com/loretoparisi/fasttext.js#examples)
 	* [Train](https://github.com/loretoparisi/fasttext.js#train-1)
 	* [Test](https://github.com/loretoparisi/fasttext.js#test-1)
+    * [Test Labels](https://github.com/loretoparisi/fasttext.js#test-labels) :new:
 	* [Predict](https://github.com/loretoparisi/fasttext.js#predict-1)
 	* [Run a Prediction Server](https://github.com/loretoparisi/fasttext.js#run-a-prediction-server)
 	* [Language Identification Server](https://github.com/loretoparisi/fasttext.js#language-identificaton-server)
@@ -241,6 +242,22 @@ fastText.train()
     console.error("train error",error);
 })
 ```
+
+### Test-Labels
+:new: The api `testLabels` evaluate labels `F1-Score`, `Accuracy` and `Precision` for each label in the model.
+
+```javascript
+var fastText = new FastText({
+    loadModel: './band_model.bin',
+    testFile:  './band_test.txt'
+});
+fastText.testLabels()
+.then(evaluation=> {
+    console.log("test-labels:",evaluation);
+})
+.catch(error => {
+    console.error(error);
+})
 
 ### Predict
 To inference your model with new data and predict the label you must specify the model file to be loaded as `loadModel`. You can then call the `load` method once, and `predict(string)` to classify a string. Optionally you can specify the `k` most likely labels to print for each line as `predict: { precisionRecall: k }`
