@@ -2,11 +2,11 @@
 # @author Loreto Parisi loretoparisi@gmail.com
 # @2017-2018 Loreto Parisi loretoparisi@gmail.com
 
-
 import argparse
 import numpy as np
 import itertools
 from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 import matplotlib.pyplot as plt
 
 def plot_confusion_matrix(cm, classes,
@@ -52,6 +52,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Display confusion matrix.')
     parser.add_argument('test', help='Path to test labels')
     parser.add_argument('predict', help='Path to predictions')
+    parser.add_argument('plot', help='plot the confusion matrix')
     args = parser.parse_args()
     test_labels = parse_labels(args.test)
     print("Test labels:%d (sample)\n%s" % (len(test_labels),test_labels[:1]) )
@@ -62,9 +63,28 @@ if __name__ == "__main__":
     eq = test_labels == pred_labels
     print("Accuracy: " + str(eq.sum() / len(test_labels)))
     cnf_matrix=confusion_matrix(test_labels, pred_labels)
+    print("Confusion Matrix:")
     print(cnf_matrix)
 
-    plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes=list(labels), normalize=True, title='Confusion matrix')
-    plt.show()
+    if args.plot in ['true', '1']:
+
+        values = list(labels)
+        label_encoder = LabelEncoder()
+        integer_encoded = label_encoder.fit_transform(values)
+        integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
+        
+        label_index=label_encoder.transform(values)
+        label_dict = dict(zip(values, label_index))
+
+        sorted_labels_int = sorted(label_dict, key=label_dict.get, reverse=False)
+
+        print(sorted_labels_int)
+        
+        plt.figure()
+        plot_confusion_matrix(cnf_matrix, classes=sorted_labels_int, normalize=True, title='Confusion matrix')
+        plt.show()
+    else:
+        cnf_matrix_norm = cnf_matrix.astype('float') / cnf_matrix.sum(axis=1)[:, np.newaxis]
+        print("Normalized:")
+        print(cnf_matrix_norm)
 

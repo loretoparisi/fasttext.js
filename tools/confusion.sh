@@ -9,6 +9,8 @@ DATASET=$1
 MODEL=$2
 COLS=$3
 NORM=$4
+PLOT=$5
+
 ROOT=$TMPDIR
 PLATFORM=$(uname)
 
@@ -21,9 +23,12 @@ elif [[ "$PLATFORM" == 'Darwin' ]]; then
 fi
 
 [ -z "$BIN" ] && { echo "Uh-oh. Platform not supported"; exit 1; }
-[ -z "$1" ] && { echo "Usage: $0 DATASET_FILE MODEL_FILE [LABEL_COLUMN] [NORMALIZE_LABEL]"; exit 1; }
+[ -z "$1" ] && { echo "Usage: $0 DATASET_FILE MODEL_FILE [LABEL_COLUMS, def:1] [LABEL_NORMALIZED, default|normalize, def:default] [PLOT, 0|1, def:0]"; exit 1; }
 
 echo Platform is $PLATFORM
+if [ -z "$NORM" ]; then
+NORM='default'
+fi
 if [ "$NORM" == 'default' ]; then
 echo Normalized $DATASET
 cp $DATASET ${ROOT}norm
@@ -41,6 +46,10 @@ cut -f -$COLS -d$'\t' ${ROOT}norm > ${ROOT}normlabels
 echo Calculating predictions...
 $BIN predict $MODEL $DATASET $COLS > ${ROOT}pexp
 
+if [ -z "$PLOT" ]; then
+PLOT=0
+fi
+
 echo Calculating confusion matrix...
-./confusion.py ${ROOT}normlabels ${ROOT}pexp
+./confusion.py ${ROOT}normlabels ${ROOT}pexp $PLOT
 

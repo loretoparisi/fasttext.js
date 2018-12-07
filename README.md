@@ -30,6 +30,7 @@
 	* [External Binary](https://github.com/loretoparisi/fasttext.js#external-binary)
 – [How It Works](https://github.com/loretoparisi/fasttext.js#how-it-works)
 – [Disclaimer](https://github.com/loretoparisi/fasttext.js#disclaimer)
+– [Acknowledgments](https://github.com/loretoparisi/fasttext.js#acknowledgments)
 
 ## FastText.js APIs
 This version of `FastText.js` comes with the following `JavaScript` APIs
@@ -328,13 +329,17 @@ To evaluate the [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matri
 ```bash
 $ cd tools/
 $ ./confusion.sh 
-Usage: ./confusion.sh DATASET_FILE MODEL_FILE [LABEL_COLUMN] [NORMALIZE_LABEL]
+Usage: ./confusion.sh DATASET_FILE MODEL_FILE [LABEL_COLUMS, def:1] [LABEL_NORMALIZED, default|normalize, def:default] [PLOT, 0|1, def:0]
 ```
 
 You must specify the dataset file path that has been used to train the model and the model file path. If the label golumn is different than the first column, plese specify the `LABEL_COLUMN` column index. If the dataset has a different label prefix than fasttext prefix i.e. `__label__`, please leave the last parameter `NORMALIZE_LABEL` void, so that the script will normalize the labels:
 
 ```bash
-./confusion.sh ../examples/data/sms.tsv ../examples/data/sms_model.bin 1
+cd examples/
+node train
+cd ..
+cd tools/
+./confusion.sh ../examples/data/sms.tsv ../examples/data/sms_model.bin 1 normalize 1
 ```
 
 If the dataset must be normalized, having a different label prefix or no one, please use the value `default` instead:
@@ -522,3 +527,7 @@ Precompiled binaries runs `FastText` natively. A node `child_process` spawn will
 
 ## Disclaimer
 For more info about `FastText` and `FastText` license see [here](https://github.com/facebookresearch/fastText).
+
+## Acknowledgments
+I thank you the following devs that helped me to improve [FastText.js](https://github.com/loretoparisi/fasttext.js)
+- [shoegazerstella](https://github.com/shoegazerstella)
