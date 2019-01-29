@@ -22,6 +22,7 @@
 	* [Test](https://github.com/loretoparisi/fasttext.js#test-1)
     * [Test Labels](https://github.com/loretoparisi/fasttext.js#test-labels) :new:
 	* [Predict](https://github.com/loretoparisi/fasttext.js#predict-1)
+    * [Multi-label](https://github.com/loretoparisi/fasttext.js#multi-label) :new:
 	* [Run a Prediction Server](https://github.com/loretoparisi/fasttext.js#run-a-prediction-server)
 	* [Language Identification Server](https://github.com/loretoparisi/fasttext.js#language-identificaton-server)
 - [Training set and Test set format](https://github.com/loretoparisi/fasttext.js#training-set-and-test-set-format)
@@ -303,6 +304,66 @@ fastText.load()
 .catch(error => {
     console.error(error);
 });
+```
+
+### Multi-Label
+A multi-label example will have a list of columns of labels marked by `__label__` prefix
+
+```csv
+__label__sauce __label__cheese How much does potato starch affect a cheese sauce recipe?
+```
+FastText.js will automatically handle multiple labels in the dataset for training and testing, please run the `multilabel.js` example to test it out:
+
+```sh
+cd examples/
+node multilabel.js
+```
+
+The `train()` and `test()` will print out:
+```sh
+N	3000
+P@1	0.000333
+R@1	0.000144
+Number of examples: 3000
+exec:fasttext end.
+exec:fasttext exit.
+{ N: '3000', P: '0.000333', R: '0.000144' }
+```
+
+while the `testLabels` api will print out the labels array:
+
+```
+[ '__label__equipment',
+  '__label__cast',
+  '__label__oven',
+  '__label__sauce',
+  '__label__indian',
+  '__label__breakfast',
+  '__label__chili',
+  '__label__spicy',
+  '__label__bread',
+  '__label__eggs',
+  '__label__baking',
+   ...
+```
+
+and by labels scores:
+
+```sh
+F1-Score : 0.175182  Precision : 0.096000  Recall : 1.000000   __label__baking
+F1-Score : 0.150432  Precision : 0.081333  Recall : 1.000000   __label__food-safety
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__substitutions
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__equipment
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__bread
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__chicken
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__storage-method
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__eggs
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__meat
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__sauce
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__cake
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__flavor
+F1-Score : --------  Precision : --------  Recall : 0.000000   __label__freezing
+...
 ```
 
 ### Nearest Neighbor
