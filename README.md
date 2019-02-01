@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/loretoparisi/fasttext.js/master)
+
 ## What is FastText and FastText.js
 [FastText](https://github.com/facebookresearch/fastText) is a library for efficient learning of word representations and sentence classification. FastText is provided by Facebook Inc. 
 `FastText.js` is a `JavaScript` library  that wraps `FastText` to run smoothly within `node`.
