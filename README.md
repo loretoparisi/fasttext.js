@@ -577,7 +577,7 @@ that will be correctly detected as KO:
 The `trainFile` and `testFile` are a TSV or CSV file where the fist column is the label, the second column is the text sample. `FastText.js` will try to normalize the dataset to the `FastText` format using `FastText.prepareDataset` method. You do not have to call this method explicitly by the way, `FastText.js` will do for you. For more info see [here](https://github.com/facebookresearch/fastText#text-classification).
 
 ## Datasets
-We host some example datasets in order to train, test and predict FastText models on the fly. For more info how to download and work with datasets, please see in the [examples/datasets](https://github.com/loretoparisi/fasttext.js/tree/master/examples/datasets) folder.
+We host some example datasets in order to train, test and predict FastText models on the fly. For more info how to download and work with datasets, please see in the [examples/datasets](https://github.com/loretoparisi/fasttext.js/tree/master/examples/dataset) folder.
 
 ## Models
 We host some example pretrained models. For more info how to download and work with pretrained models, please see in the [examples/models](https://github.com/loretoparisi/fasttext.js/tree/master/examples/models) folder.
