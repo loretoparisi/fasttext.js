@@ -1,6 +1,5 @@
-#!/usr/local/bin/python3
 # @author Loreto Parisi loretoparisi@gmail.com
-# @2017-2018 Loreto Parisi loretoparisi@gmail.com
+# @2017-2019 Loreto Parisi loretoparisi@gmail.com
 
 import argparse
 import numpy as np
@@ -44,8 +43,15 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Predicted label')
 
 def parse_labels(path):
+    '''
+        parse labels into a numpy array
+        label column is the first
+        label format is __label__NAME
+        Currently there is a known issue
+        @see https://stackoverflow.com/questions/54963463/python-valueerror-shape-mismatch-objects-cannot-be-broadcast-to-a-single-shape
+    '''
     with open(path, 'r') as f:
-        return np.array(list(map(lambda x: x[9:], f.read().split())))
+        return np.array( list(map(lambda x: x[9:], f.read().decode('utf8').split() )) )
 
 
 if __name__ == "__main__":

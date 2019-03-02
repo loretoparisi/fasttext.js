@@ -10,7 +10,7 @@ myshuf() {
   perl -MList::Util=shuffle -e 'print shuffle(<>);' "$@";
 }
 
-FOLDER=$1
+FOLDER=./
 
 if [ ! -f $FOLDER/sentences.tar ]; then
     echo $FOLDER/sentences.tar downloading...
@@ -46,6 +46,6 @@ echo Splitting into train and test set...
 head -n 10000 $FOLDER/lang_all.txt > $FOLDER/lang_valid.txt
 tail -n +10001 $FOLDER/lang_all.txt > $FOLDER/lang_train.txt
 
-echo Train set $FOLDER/lang_train.txt
-echo Validation set $FOLDER/lang_valid.txt
+echo Train set $FOLDER/lang_train.txt samples: $(wc -l < $FOLDER/lang_train.txt )
+echo Validation set $FOLDER/lang_valid.txt: $(wc -l < $FOLDER/lang_valid.txt )
 

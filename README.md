@@ -27,7 +27,9 @@
 	* [Predict](https://github.com/loretoparisi/fasttext.js#predict-1)
     * [Multi-label](https://github.com/loretoparisi/fasttext.js#multi-label) :new:
 	* [Run a Prediction Server](https://github.com/loretoparisi/fasttext.js#run-a-prediction-server)
+    * [Run a Prediction CLI](https://github.com/loretoparisi/fasttext.js#run-a-prediction-cli) :new:
 	* [Language Identification Server](https://github.com/loretoparisi/fasttext.js#language-identificaton-server)
+    * [Train Language Identification Model](https://github.com/loretoparisi/fasttext.js#train-language-identification-model) :new:
 - [Training set and Test set format](https://github.com/loretoparisi/fasttext.js#training-set-and-test-set-format)
 - [Datasets](https://github.com/loretoparisi/fasttext.js#datasets) :new:
 - [Models](https://github.com/loretoparisi/fasttext.js#models) :new:
@@ -398,28 +400,28 @@ $ ./confusion.sh
 Usage: ./confusion.sh DATASET_FILE MODEL_FILE [LABEL_COLUMS, def:1] [LABEL_NORMALIZED, default|normalize, def:default] [PLOT, 0|1, def:0]
 ```
 
-You must specify the dataset file path that has been used to train the model and the model file path. If the label golumn is different than the first column, plese specify the `LABEL_COLUMN` column index. If the dataset has a different label prefix than fasttext prefix i.e. `__label__`, please leave the last parameter `NORMALIZE_LABEL` void, so that the script will normalize the labels:
+You must specify the dataset file path that has been used to train the model and the model file path. If the label golumn is different than the first column, plese specify the `LABEL_COLUMN` column index. If the dataset must be normalized, having a different label prefix or no one, please use the value `normalize`:
 
 ```bash
 cd examples/
 node train
 cd ..
 cd tools/
-./confusion.sh ../examples/data/sms.tsv ../examples/data/sms_model.bin 1 normalize 1
+./confusion.sh ../examples/dataset/sms.tsv ../examples/models/sms_model.bin 1 normalize 1
 ```
 
-If the dataset must be normalized, having a different label prefix or no one, please use the value `default` instead:
+If the dataset has the fasttext label prefix i.e. `__label__`, please set the  parameter `NORMALIZE_LABEL` to `default`:
 
 ```bash
-./confusion.sh ../examples/data/sms.tsv ../examples/data/sms_model.bin 1 default
+./confusion.sh ../examples/dataset/sms.tsv ../examples/models/sms_model.bin 1 default
 ```
 
 The script will calculate the predictions against the dataset and build confusion matrix using `sklearn`
 
 ```bash
-./confusion.sh ../examples/data/sms.tsv ../examples/data/sms_model.bin 1
+./confusion.sh ../examples/dataset/sms.tsv ../examples/models/sms_model.bin 1
 Platform is Darwin
-Normalizing dataset ../examples/data/sms.tsv...
+Normalizing dataset ../examples/dataset/sms.tsv...
 Splitting 1 label colums...
 Calculating predictions...
 Calculating confusion matrix...
@@ -542,6 +544,30 @@ The server api will response in json format
 }
 ```
 
+### Run a Prediction CLI
+To run a prediction Command Line Interfance, please specify the env `MODEL` of the model file to run and use the example script `cli`:
+
+  ```bash
+cd examples/
+export MODEL=models/langid_model.bin
+node cli
+Loading model...
+model loaded.
+Welcome to FastText.js CLI
+Type exit or CTRL-Z to exit
+> hello how are you?
+> [ { label: 'EN', score: '0.988627' },
+  { label: 'BN', score: '0.000935369' } ]
+> das is seher gut!
+> [ { label: 'DE', score: '0.513201' },
+  { label: 'EN', score: '0.411016' } ]
+rien ne va plus
+> [ { label: 'FR', score: '0.951547' },
+  { label: 'EO', score: '0.00760891' } ]
+exit
+> model unloaded.
+  ```
+
 ### Language Identificaton Server
 In this example we use the fastText compressed languages model (176 languages) we host.
 
@@ -572,6 +598,9 @@ that will be correctly detected as KO:
 	]
 }
 ```
+
+### Train Language Identification Model
+We train a langauge identification model from scratch. Please see in the [examples/models](https://github.com/loretoparisi/fasttext.js/tree/master/examples/models) folder.
 
 ## Training set and Test set format
 The `trainFile` and `testFile` are a TSV or CSV file where the fist column is the label, the second column is the text sample. `FastText.js` will try to normalize the dataset to the `FastText` format using `FastText.prepareDataset` method. You do not have to call this method explicitly by the way, `FastText.js` will do for you. For more info see [here](https://github.com/facebookresearch/fastText#text-classification).

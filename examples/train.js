@@ -38,7 +38,7 @@
             // minimal number of word occurences
             minCountLabel: 1,
             // size of word vectors [100]
-            dim: process.env.TRAIN_DIM || 200,
+            dim: process.env.TRAIN_DIM || 100,
             // size of the context window [5]
             ws: process.env.TRAIN_WS || 5,
             //  number of epochs [5]

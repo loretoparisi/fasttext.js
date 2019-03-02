@@ -1,6 +1,6 @@
 #!/bin/bash
 # @author Loreto Parisi loretoparisi@gmail.com
-# @2017-2018 Loreto Parisi loretoparisi@gmail.com
+# @2017-2019 Loreto Parisi loretoparisi@gmail.com
 
 # to handle illegal byte sequence
 export LC_CTYPE=C
@@ -50,6 +50,9 @@ if [ -z "$PLOT" ]; then
 PLOT=0
 fi
 
+echo "Dataset sample:"
+head -n3 ${ROOT}normlabels
 echo Calculating confusion matrix...
-./confusion.py ${ROOT}normlabels ${ROOT}pexp $PLOT
+# please change your intepret here, better if python3!
+python confusion.py ${ROOT}normlabels ${ROOT}pexp $PLOT
 
