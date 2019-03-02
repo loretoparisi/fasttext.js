@@ -1,7 +1,7 @@
 /**
  * FastText.js
  * @author Loreto Parisi (loretoparisi at gmail dot com)
- * @copyright Copyright (c) 2017 Loreto Parisi
+ * @copyright Copyright (c) 2017-2019 Loreto Parisi
 */
 
 "use strict";
@@ -18,7 +18,7 @@
 
     const http = require('http');
     const fastText = new FastText({
-        loadModel: process.env.MODEL || __dirname+'/data/sms_model.bin'
+        loadModel: process.env.MODEL || __dirname+'/models/lid.176.ftz'
     });
 
     /**

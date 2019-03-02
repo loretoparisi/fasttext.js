@@ -1,17 +1,18 @@
 /**
  * FastText.js
  * @author Loreto Parisi (loretoparisi at gmail dot com)
- * @copyright Copyright (c) 2017-2018 Loreto Parisi
+ * @copyright Copyright (c) 2017-2019 Loreto Parisi
 */
 
 "use strict";
 
 (function () {
 
-    var DATA_ROOT = __dirname + '/data';
+    var DATASET_ROOT = __dirname + '/dataset';
+    var MODELS_ROOT = __dirname + '/models';
 
-    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/sms.tsv' // train file
-    var SERIALIZETO_W2V = process.env.SERIALIZETO_W2V || DATA_ROOT + '/sms_model_w2v' // do not specify ext: 'bin' will be added
+    var TRAINFILE = process.env.TRAINFILE || DATASET_ROOT + '/sms.tsv' // train file
+    var SERIALIZETO_W2V = process.env.SERIALIZETO_W2V || MODELS_ROOT + '/sms_model_w2v' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');
     var fastText = new FastText({

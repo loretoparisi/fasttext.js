@@ -1,21 +1,22 @@
 /**
  * FastText.js
  * @author Loreto Parisi (loretoparisi at gmail dot com)
- * @copyright Copyright (c) 2017 Loreto Parisi
+ * @copyright Copyright (c) 2017-2019 Loreto Parisi
 */
 
 "use strict";
 
 (function () {
 
-    var DATA_ROOT = __dirname + '/data';
+    var MODELS_ROOT = __dirname + '/models';
+    var DATASET_ROOT = __dirname + '/dataset';
 
-    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/sms_train.tsv'
-    var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/sms_model' // do not specify ext: 'bin' will be added
+    var TRAINFILE = process.env.TRAINFILE || DATASET_ROOT + '/sms_dataset_train.tsv'
+    var SERIALIZETO = process.env.SERIALIZETO || MODELS_ROOT + '/sms_model' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');
 
-    var fastText = new FastText({
+    var ft = new FastText({
         debug: true,
         train: {
             // number of concurrent threads
@@ -54,14 +55,14 @@
         },
         serializeTo: SERIALIZETO,
         trainFile: TRAINFILE,
-        trainCallback: function(res) {
-            console.log( "\t"+JSON.stringify(res) );
+        trainCallback: function (res) {
+            console.log("\t" + JSON.stringify(res));
         }
     });
 
-    fastText.train()
+    ft.train()
         .then(status => {
-            console.log("train done.",status);
+            console.log("train done.", status);
         })
         .catch(error => {
             console.error("train error", error);

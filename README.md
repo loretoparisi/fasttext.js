@@ -29,6 +29,8 @@
 	* [Run a Prediction Server](https://github.com/loretoparisi/fasttext.js#run-a-prediction-server)
 	* [Language Identification Server](https://github.com/loretoparisi/fasttext.js#language-identificaton-server)
 - [Training set and Test set format](https://github.com/loretoparisi/fasttext.js#training-set-and-test-set-format)
+- [Datasets](https://github.com/loretoparisi/fasttext.js#datasets) :new:
+- [Models](https://github.com/loretoparisi/fasttext.js#models) :new:
 - [Other Versions](https://github.com/loretoparisi/fasttext.js#other-versions)
 – [Supported Platforms](https://github.com/loretoparisi/fasttext.js#supported-platforms)
 	* [External Binary](https://github.com/loretoparisi/fasttext.js#external-binary)
@@ -500,11 +502,18 @@ TEXT: lbi software provides precisely engineered ,  customer-focused #hrtech sol
 ```
 
 ### Run a Prediction Server
-To run the model and serve predictions via a simple node `http` api
+We run a model and serve predictions via a simple node `http` api. We first download the example hosted models:
+
+```bash
+cd examples/models
+./models.sh
+```
+
+We now run the `server.js` example that will create a `http` server. We can export the `MODEL` env that will point to the local pretrained model, and a optional `PORT` parameter were the server is going to listen (default `PORT` is 3000):
 
 ```bash
 $ cd examples/
-$ export MODEL=data/lid.176.ftz
+$ export MODEL=models/lid.176.ftz
 $ node server.js 
 model loaded
 server is listening on 3000
@@ -534,7 +543,7 @@ The server api will response in json format
 ```
 
 ### Language Identificaton Server
-In this example we use the fastText compressed languages model (176 languages) availalble in the full version [here](https://fasttext.cc/docs/en/language-identification.html)
+In this example we use the fastText compressed languages model (176 languages) we host.
 
 ```bash
 cd examples/
@@ -566,6 +575,12 @@ that will be correctly detected as KO:
 
 ## Training set and Test set format
 The `trainFile` and `testFile` are a TSV or CSV file where the fist column is the label, the second column is the text sample. `FastText.js` will try to normalize the dataset to the `FastText` format using `FastText.prepareDataset` method. You do not have to call this method explicitly by the way, `FastText.js` will do for you. For more info see [here](https://github.com/facebookresearch/fastText#text-classification).
+
+## Datasets
+We host some example datasets in order to train, test and predict FastText models on the fly. For more info how to download and work with datasets, please see in the [examples/datasets](https://github.com/loretoparisi/fasttext.js/tree/master/examples/datasets) folder.
+
+## Models
+We host some example pretrained models. For more info how to download and work with pretrained models, please see in the [examples/models](https://github.com/loretoparisi/fasttext.js/tree/master/examples/models) folder.
 
 ## Other Versions
 - [FastText Python Package](https://pypi.python.org/pypi/fasttext)

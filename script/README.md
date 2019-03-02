@@ -3,6 +3,47 @@ This directory contains a number of tools to handle datasets with `bash`. It is 
 
 
 # How to use the Bash Tools
+## Download Datasets
+We host some example datasets in order to train, test and predict FastText models on the fly.
+To download the toy dataset please run
+
+```bash
+cd examples/dataset
+./dataset.sh
+```
+
+The datasets will be copied in the `examples/datasets` folder.
+
+## Download Models
+We host some example pretrained models. To download the models please run
+
+```bash
+cd examples/models
+./models.sh
+```
+
+The models will be copied in the `examples/models` folder.
+
+
+## Split Train and Test files
+The syntax is `split.sh DATASET_FILE DEST_FOLDER SPLIT_RATIO`
+
+
+```bash
+./split.sh ../examples/dataset/cooking_dataset.tsv ../examples/dataset 70
+Dataset:cooking_dataset.tsv ratio: 70%
+Training set:../examples/dataset/cooking_dataset_train.tsv samples: 10782
+Test set:../examples/dataset/cooking_dataset_test.tsv samnples: 4622
+```
+
+You will now see for the chosen dataset file an additional train and a test file
+```
+.
+├── cooking_dataset.tsv
+├── cooking_dataset_test.tsv
+├── cooking_dataset_train.tsv
+```
+
 ## Count classes
 To count different class labels in a csv or tsv dataset file. 
 The syntax is `count_classes.sh LABEL_COLUMN DATASET_FILE COLUMN_SEPARATOR`
@@ -38,21 +79,6 @@ The syntax is `sort.sh LABEL_COLUMN INPUT_DATASET_FILE OUTPUT_DATASET_FILE COLUM
 
 ```bash
 ./sort.sh 1 ../examples/data/sms.tsv ./sms_sorted.tsv "t"
-```
-
-## Split Train and Test files
-The syntax is `split.sh DATASET_FILE DEST_FOLDER SPLIT_RATIO`
-
-
-```bash
-$ ./split.sh ../examples/data/sms.tsv . 70
-Dataset:sms.tsv ratio:70
-Training set:./sms_train.tsv
-Test set:./sms_test.tsv
-$ wc -l < ./sms_test.tsv 
-     926
-$ wc -l < ./sms_train.tsv 
-     398
 ```
 
 ## Normalize

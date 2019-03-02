@@ -21,12 +21,14 @@ fname="${filename%.*}"
 DS_TRAIN="${fname}_train.$ext"
 DS_TEST="${fname}_test.$ext"
 
-echo Dataset:$fname.$ext ratio:$PERC
+echo "Dataset:${fname}.${ext} ratio: ${PERC}%"
 
 split -l $[ $(wc -l $DS | awk '{print $1}') * ${PERC} / 100] $DS
 
-
 mv xaa $DEST/$DS_TRAIN
 mv xab $DEST/$DS_TEST
-echo Training set:$DEST/$DS_TRAIN
-echo Test set:$DEST/$DS_TEST
+
+echo Training set:$DEST/$DS_TRAIN samples: $(wc -l < $DEST/$DS_TRAIN)
+echo Test set:$DEST/$DS_TEST samnples: $(wc -l < $DEST/$DS_TEST)
+
+
