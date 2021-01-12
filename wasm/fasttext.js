@@ -517,4 +517,4 @@ class FastTextModel {
 }
 
 
-module.exports = {FastText, addOnPostRun};
+module.exports =  {FastText, addOnPostRun};
