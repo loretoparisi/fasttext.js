@@ -9,9 +9,10 @@ const printVector = function(predictions, limit) {
     }
 }
 
-let ft = new FastText();
+addOnPostRun(() => {
+    let ft = new FastText();
 
-    const url = "lid.176.ftz";
+    const url = "./lid.176.ftz";
     ft.loadModel(url).then(model => {
         let text = "Bonjour à tous. Ceci est du français";
         console.log(text);
@@ -25,3 +26,4 @@ let ft = new FastText();
         console.log(text);
         printVector(model.predict(text, 5, 0.0));
     });
+});

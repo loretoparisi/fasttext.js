@@ -5,20 +5,37 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
+var fs = require('fs');
+const fetch = function (path) {
+  return new Promise(function (resolve, reject) {
+    try {
+      bin = fs.readFileSync(path);
+      var response = {};
+      response['arrayBuffer'] = () => bin;
+      response['ok'] = true;
+      resolve(response);
+    } catch (e) { reject(e) };
+  });
+}
 const fastTextModularized = require('./fasttext_wasm.js');
-const fastTextModule = fastTextModularized();
+
+var fastTextModule = null
+
+const _initFastTextModule = async function () {
+  fastTextModule = await fastTextModularized();
+  return true
+}
 
 let postRunFunc = null;
-const addOnPostRun = function(func) {
+const addOnPostRun = function (func) {
   postRunFunc = func;
 };
 
-fastTextModule.addOnPostRun(() => {
+_initFastTextModule().then((res) => {
   if (postRunFunc) {
     postRunFunc();
   }
-});
+})
 
 const thisModule = this;
 const trainFileInWasmFs = 'train.txt';
@@ -32,9 +49,9 @@ const getFloat32ArrayFromHeap = (len) => {
     dataPtr,
     dataBytes);
   return {
-    'ptr':dataHeap.byteOffset,
-    'size':len,
-    'buffer':dataHeap.buffer
+    'ptr': dataHeap.byteOffset,
+    'size': len,
+    'buffer': dataHeap.buffer
   };
 };
 
@@ -61,14 +78,14 @@ class FastText {
     const fetchFunc = (thisModule && thisModule.fetch) || fetch;
 
     const fastTextNative = this.f;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       fetchFunc(url).then(response => {
         return response.arrayBuffer();
       }).then(bytes => {
         const byteArray = new Uint8Array(bytes);
         const FS = fastTextModule.FS;
         FS.writeFile(modelFileInWasmFs, byteArray);
-      }).then(() =>  {
+      }).then(() => {
         fastTextNative.loadModel(modelFileInWasmFs);
         resolve(new FastTextModel(fastTextNative));
       }).catch(error => {
@@ -81,14 +98,14 @@ class FastText {
     const fetchFunc = (thisModule && thisModule.fetch) || fetch;
     const fastTextNative = this.f;
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       fetchFunc(url).then(response => {
         return response.arrayBuffer();
       }).then(bytes => {
         const byteArray = new Uint8Array(bytes);
         const FS = fastTextModule.FS;
         FS.writeFile(trainFileInWasmFs, byteArray);
-      }).then(() =>  {
+      }).then(() => {
         const argsList = ['lr', 'lrUpdateRate', 'dim', 'ws', 'epoch',
           'minCount', 'minCountLabel', 'neg', 'wordNgrams', 'loss',
           'model', 'bucket', 'minn', 'maxn', 't', 'label', 'verbose',
@@ -143,7 +160,7 @@ class FastText {
    */
   trainSupervised(url, kwargs = {}, callback) {
     const self = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       self._train(url, 'supervised', kwargs, callback).then(model => {
         resolve(model);
       }).catch(error => {
@@ -182,7 +199,7 @@ class FastText {
    */
   trainUnsupervised(url, modelName, kwargs = {}, callback) {
     const self = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       self._train(url, modelName, kwargs, callback).then(model => {
         resolve(model);
       }).catch(error => {
@@ -499,14 +516,14 @@ class FastTextModel {
     const fetchFunc = (thisModule && thisModule.fetch) || fetch;
     const fastTextNative = this.f;
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       fetchFunc(url).then(response => {
         return response.arrayBuffer();
       }).then(bytes => {
         const byteArray = new Uint8Array(bytes);
         const FS = fastTextModule.FS;
         FS.writeFile(testFileInWasmFs, byteArray);
-      }).then(() =>  {
+      }).then(() => {
         const meter = fastTextNative.test(testFileInWasmFs, k, threshold);
         resolve(meter);
       }).catch(error => {
@@ -517,4 +534,4 @@ class FastTextModel {
 }
 
 
-module.exports = {FastText, addOnPostRun};
+module.exports = { FastText, addOnPostRun };
