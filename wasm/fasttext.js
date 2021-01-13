@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const fastTextModularized  = require('./fasttext_wasm.js');
+const fastTextModularized = require('./fasttext_wasm.js');
 const fastTextModule = fastTextModularized();
 
 let postRunFunc = null;
@@ -517,4 +517,4 @@ class FastTextModel {
 }
 
 
-module.exports =  {FastText, addOnPostRun};
+module.exports = {FastText, addOnPostRun};

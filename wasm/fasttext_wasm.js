@@ -8702,4 +8702,4 @@ run();
 }
 );
 })();
-module.exports =  FastTextModule;
+module.exports = FastTextModule;

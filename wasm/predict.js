@@ -9,8 +9,7 @@ const printVector = function(predictions, limit) {
     }
 }
 
-addOnPostRun(() => {
-    let ft = new FastText();
+let ft = new FastText();
 
     const url = "lid.176.ftz";
     ft.loadModel(url).then(model => {
@@ -26,4 +25,3 @@ addOnPostRun(() => {
         console.log(text);
         printVector(model.predict(text, 5, 0.0));
     });
-});
