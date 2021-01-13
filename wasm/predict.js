@@ -12,7 +12,7 @@ const printVector = function(predictions, limit) {
 addOnPostRun(() => {
     let ft = new FastText();
 
-    const url = "./lid.176.ftz";
+    const url = "lid.176.ftz";
     ft.loadModel(url).then(model => {
         let text = "Bonjour à tous. Ceci est du français";
         console.log(text);

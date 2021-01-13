@@ -2,6 +2,8 @@
 Compiled wasm files
 
 ## How to run
+
+### Predict
 ```
 node predict.js
 Bonjour à tous. Ceci est du français
@@ -23,6 +25,35 @@ Merhaba dünya. Bu da türkçe
 [ 0.018536636605858803, '__label__jv' ]
 [ 0.014385990798473358, '__label__hu' ]
 ```
+### Train unsupervised
+Prepare the example input text normalizing it
+```
+cd script/
+./normalize.sh ../examples/dataset/shakespeare.txt ../examples/dataset/shakespeare.norm.txt
+```
+
+We now train the unsupervised model
+```
+cd wasm/
+node train_unsupervised.js
+``` 
+### Train supervised
+Prepare the example input dataset splitting 70 train 70 test
+```
+./examples/dataset/download.sh
+cd script/
+./split.sh ../examples/dataset/cooking_dataset.tsv ../examples/dataset 70
+Dataset:cooking_dataset.tsv ratio: 70%
+Training set:../examples/dataset/cooking_dataset_train.tsv samples: 10782
+Test set:../examples/dataset/cooking_dataset_test.tsv samnples: 4622
+```
+
+Now we train the supervised classifier model
+```
+cd wasm/
+node train_supervised.js
+``` 
+
 
 ## How to build
 
