@@ -10,6 +10,7 @@
 - [How to Install](https://github.com/loretoparisi/fasttext.js#how-to-install)
 	* [Install via NPM](https://github.com/loretoparisi/fasttext.js#install-via-npm)
 	* [Install via Docker](https://github.com/loretoparisi/fasttext.js#install-via-docker)
+	* [WASM](https://github.com/loretoparisi/fasttext.js#wasm) :new:
 - [How to Use](https://github.com/loretoparisi/fasttext.js#how-to-use)
 	* [Train](https://github.com/loretoparisi/fasttext.js#train)
 	* [Train Supervised](https://github.com/loretoparisi/fasttext.js#train-supervised)
@@ -89,6 +90,9 @@ To serve a different custom model a volume can be used and passing the `MODEL` e
 docker run -v /models/:/models --rm -it -p 3000:3000 -e MODEL=/models/my_model.bin fasttext.js node fasttext.js/examples/server.js 
 
 ```
+
+### WASM
+We provide a WASM compiled binary of `FastText` to be used natively NodeJS. Please check `/wasm` folder for library and examples. :new:
 
 ## How to Use
 
