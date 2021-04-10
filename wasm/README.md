@@ -40,7 +40,7 @@ node train_unsupervised.js
 ### Train supervised
 Prepare the example input dataset splitting 70 train 70 test
 ```
-./examples/dataset/download.sh
+./examples/dataset/dataset.sh
 cd script/
 ./split.sh ../examples/dataset/cooking_dataset.tsv ../examples/dataset 70
 Dataset:cooking_dataset.tsv ratio: 70%
