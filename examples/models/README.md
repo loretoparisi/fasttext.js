@@ -35,7 +35,8 @@ Validation set ./lang_valid.txt: 10000
 Now we can run the `train` example, specifying at least the env for `TRAINFILE` for input training set and `SERIALIZETO` for the output model file. Please do not specify the extension, the 'bin' extension will be added automatically:
 
 ```bash
-export TRAINFILE=examples/dataset/lang_train.txt
+cd examples
+export TRAINFILE=dataset/lang_train.txt
 export SERIALIZETO=models/langid_model
 node train
 { W: 41622, L: 146 }
@@ -50,7 +51,8 @@ train done. { W: 41622, L: 146 }
 We can now test the model running the `test` script. We have to set the env `TESTFILE` for the input test set, and the `MODEL` file we have trained before:
 
 ```bash
-export TESTFILE=examples/dataset/lang_valid.txt
+cd examples
+export TESTFILE=dataset/lang_valid.txt
 echo $SERIALIZETO.bin
 models/langid_model.bin
 export MODEL=$SERIALIZETO.bin
