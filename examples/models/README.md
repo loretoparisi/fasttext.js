@@ -21,7 +21,7 @@ To train a language identification model we will use the [tatoeba](https://tatoe
 We first run the `langid_dataset` that will split the sentences dataset into the `lang_train.txt` and `lang_valid.txt` dataset files. The script will also convert the labels into FastText default label format and shuffle the dataset rows.
 
 ```bash
-cd dataset/
+cd examples/dataset/
 ./langid_dataset.sh
 ./sentences.tar downloading...
 Converting to fasttext format...
@@ -35,6 +35,7 @@ Validation set ./lang_valid.txt: 10000
 Now we can run the `train` example, specifying at least the env for `TRAINFILE` for input training set and `SERIALIZETO` for the output model file. Please do not specify the extension, the 'bin' extension will be added automatically:
 
 ```bash
+cd examples
 export TRAINFILE=dataset/lang_train.txt
 export SERIALIZETO=models/langid_model
 node train
@@ -50,6 +51,7 @@ train done. { W: 41622, L: 146 }
 We can now test the model running the `test` script. We have to set the env `TESTFILE` for the input test set, and the `MODEL` file we have trained before:
 
 ```bash
+cd examples
 export TESTFILE=dataset/lang_valid.txt
 echo $SERIALIZETO.bin
 models/langid_model.bin
