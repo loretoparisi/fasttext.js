@@ -545,7 +545,7 @@ The server api will response in json format
 ```
 
 ### Run a Prediction CLI
-To run a prediction Command Line Interfance, please specify the env `MODEL` of the model file to run and use the example script `cli`:
+To run a prediction Command Line Interface, please specify the env `MODEL` of the model file to run and use the example script `cli`:
 
   ```bash
 cd examples/
