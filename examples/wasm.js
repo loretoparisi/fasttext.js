@@ -21,18 +21,13 @@
         },
         loadModel: MODELS_ROOT + '/lid.176.ftz' // must specifiy filename and ext
     });
-
     let text = "Bonjour à tous. Ceci est du français";
-    ft.load()
+    ft.loadWASM()
         .then(_ => {
-            return ft.predict(text);
+            return ft.predictWASM(text);
         })
         .then(labels => {
             console.log("TEXT:", text, "\nPREDICT:", labels);
-            ft.unload();
-        })
-        .then(done => {
-            console.log("model unloaded.");
         })
         .catch(error => {
             console.error("predict error", error);
