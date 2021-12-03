@@ -32,8 +32,7 @@
         console.error("predict error", error);
     }
 
-
-    // use auto load wasm module
+    // ...or use auto load wasm module
     ft = new FastText({
         predict: {
             // true to use wasm
