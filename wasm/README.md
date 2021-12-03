@@ -2,6 +2,7 @@
 Compiled wasm files
 
 ## How to run
+This folder is dedicated to testing and compiling the new WASM wrapper. If you are looking to the new WASM auto loading feature of `FastText.js`, please check in the examples folder `/examples/wasm.js`. Thank you!
 
 ### Predict
 ```
