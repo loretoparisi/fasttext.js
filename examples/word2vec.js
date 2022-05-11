@@ -11,7 +11,7 @@
     var DATASET_ROOT = __dirname + '/dataset';
     var MODELS_ROOT = __dirname + '/models';
 
-    var TRAINFILE = process.env.TRAINFILE || DATASET_ROOT + '/sms.tsv' // train file
+    var TRAINFILE = process.env.TRAINFILE || DATASET_ROOT + '/sms_dataset.tsv' // train file
     var SERIALIZETO_W2V = process.env.SERIALIZETO_W2V || MODELS_ROOT + '/sms_model_w2v' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');

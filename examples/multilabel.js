@@ -9,9 +9,9 @@
 
 (function () {
 
-    var DATA_ROOT = __dirname + '/data';
+    var DATA_ROOT = __dirname + '/dataset';
 
-    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/cooking.train'
+    var TRAINFILE = process.env.TRAINFILE || DATA_ROOT + '/cooking_dataset_train.tsv'
     var SERIALIZETO = process.env.SERIALIZETO || DATA_ROOT + '/cooking_model' // do not specify ext: 'bin' will be added
 
     var FastText = require('../lib/index');
@@ -66,7 +66,7 @@
             return fastText.test({
                 debug: true,
                 loadModel: process.env.MODEL || DATA_ROOT + '/cooking_model.bin',
-                testFile: process.env.TESTFILE || DATA_ROOT + '/cooking.valid'
+                testFile: process.env.TESTFILE || DATA_ROOT + '/cooking_dataset_test.tsv'
             });
         })
         .then(evaluation => {
@@ -74,7 +74,7 @@
             fastText.testLabels({
                 debug: true,
                 loadModel: process.env.MODEL || DATA_ROOT + '/cooking_model.bin',
-                testFile: process.env.TESTFILE || DATA_ROOT + '/cooking.valid'
+                testFile: process.env.TESTFILE || DATA_ROOT + '/cooking_dataset_test.tsv'
             });
         })
         .then(evaluation => {
