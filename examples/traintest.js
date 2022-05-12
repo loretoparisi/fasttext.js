@@ -1,7 +1,7 @@
 /**
  * FastText.js
  * @author Loreto Parisi (loretoparisi at gmail dot com)
- * @copyright Copyright (c) 2017-2019 Loreto Parisi
+ * @copyright Copyright (c) 2017-2022 Loreto Parisi
 */
 
 "use strict";
