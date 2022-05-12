@@ -5,6 +5,9 @@
 [FastText](https://github.com/facebookresearch/fastText) is a library for efficient learning of word representations and sentence classification. FastText is provided by Facebook Inc. 
 `FastText.js` is a `JavaScript` library  that wraps `FastText` to run smoothly within `node`.
 
+## What's New
+Added support for M1 Apple processor.
+
 # Table of Contents
 - [FastText.js APIs](https://github.com/loretoparisi/fasttext.js#fasttextjs-apis)
 - [How to Install](https://github.com/loretoparisi/fasttext.js#how-to-install)
