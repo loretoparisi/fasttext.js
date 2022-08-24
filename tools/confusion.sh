@@ -16,7 +16,7 @@ PLATFORM=$(uname)
 
 if [[ "$PLATFORM" == 'Linux' ]]; then
    BIN=../lib/bin/linux/fasttext
-   ROOT="{${TMPDIR:-$(dirname $(mktemp))/}"
+   ROOT="${TMPDIR:-$(dirname $(mktemp))/}"
 elif [[ "$PLATFORM" == 'Darwin' ]]; then
    BIN=../lib/bin/darwin/fasttext
    ROOT=$TMPDIR
