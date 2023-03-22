@@ -1,6 +1,6 @@
 {
-  "name": "fasttext.js",
-  "description": "Node.js FastText",
+  "name": "fasttext-app.js",
+  "description": "Node.js App using FastText",
   "version": "1.1.4",
   "homepage": "https://github.com/loretoparisi/fasttext.js/wiki/FastText.js",
   "author": {
@@ -28,5 +28,8 @@
   "scripts": {},
   "devDependencies": {},
   "keywords": [],
-  "dependencies": {}
+  "dependencies": {
+    "fasttext.js": "^1.1.4"
+  },
+  "type": "module"
 }

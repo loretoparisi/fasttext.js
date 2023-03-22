@@ -16,7 +16,7 @@
     });
 
     var sample = "You have won a phone! Please apply now!";
-    ft.loadSentence()
+    ft.loadSentence(sample)
         .then(done => {
             return ft.sentence(sample);
         })

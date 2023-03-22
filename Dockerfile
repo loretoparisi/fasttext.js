@@ -2,15 +2,15 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # v1.0.0
 #
-# Copyright (c) 2017 Loreto Parisi - https://github.com/loretoparisi/docker
+# Copyright (c) 2017-2023 Loreto Parisi - https://github.com/loretoparisi/docker
 #
 FROM ubuntu:16.04
 
-MAINTAINER Loreto Parisi <loretoparisi@gmail.com>
+LABEL authors="Loreto Parisi <loretoparisi@gmail.com>"
 
 # working directory
 ENV HOME /root
-ENV NODE_VERSION lts
+ENV NODE_VERSION 14.17.3
 WORKDIR $HOME
 
 # packages list
