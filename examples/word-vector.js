@@ -9,14 +9,14 @@
 (function () {
 
     var MODELS_ROOT = __dirname + '/models';
-
+    
     var FastText = require('../lib/index');
     var ft = new FastText({
         loadModel: MODELS_ROOT + '/sms_model.bin' // must specifiy filename and ext
     });
 
     var word = "phone";
-    ft.loadWord()
+    ft.loadWord(word)
         .then(done => {
             return ft.word(word);
         })

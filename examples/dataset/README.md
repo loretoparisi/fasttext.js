@@ -54,8 +54,8 @@ The syntax is `count_lines.sh DATASET_FILE[*]`
 
 ```bash
 cd script/
-$ ./count_lines.sh ../examples/data/sms_train.tsv 
-1059	../examples/data/sms_train.tsv
+$ ./count_lines.sh ../examples/data/sms_dataset_train.tsv 
+1059	../examples/data/sms_dataset_train.tsv
 ```
 
 For multiple files, please use a placeholder:
@@ -63,8 +63,8 @@ For multiple files, please use a placeholder:
 ```bash
 $ ./count_lines.sh "../examples/data/sms*"
 1324	../examples/data/sms.tsv
-265	../examples/data/sms_test.tsv
-1059	../examples/data/sms_train.tsv
+265	../examples/data/sms_dataset_test.tsv
+1059	../examples/data/sms_dataset_train.tsv
 2648	total
 ```
 
@@ -82,16 +82,16 @@ To normalize the rows of a dataset file use the syntax `normalize.sh INPUT_DATAS
 
 ```bash
 cd script/
-$ ./normalize.sh ./sms_train.tsv ./sms_train_norm.tsv 
+$ ./normalize.sh ./sms_dataset_train.tsv ./sms_dataset_train_norm.tsv 
 
-[loretoparisi@:mbploreto script]$ head -n5 sms_train.tsv 
+[loretoparisi@:mbploreto script]$ head -n5 sms_dataset_train.tsv 
 spam	Urgent! call 09061749602 from Landline. Your complimentary 4* Tenerife Holiday or ?10
 spam	+449071512431 URGENT! This is the 2nd attempt to contact U!U have WON ?1250 CALL 09071512433 b4 050703 T&CsBCM4235WC1N3XX. callcost 150ppm mobilesvary. max?7. 50
 spam	FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 8007 Get txting and tell ur mates www.getzed.co.uk POBox 36504 W45WQ norm150p/tone 16+
 spam	Urgent! call 09066612661 from landline. Your complementary 4* Tenerife Holiday or ?10
 spam	WINNER!! As a valued network customer you have been selected to receivea ?900 prize reward! To claim call 09061701461. Claim code KL341. Valid 12 hours only.
 
-[loretoparisi@:mbploreto script]$ head -n5 sms_train_norm.tsv 
+[loretoparisi@:mbploreto script]$ head -n5 sms_dataset_train_norm.tsv 
 spam	urgent ! call 09061749602 from landline . your complimentary 4* tenerife holiday or ?10
 spam	+449071512431 urgent ! this is the 2nd attempt to contact u ! u have won ?1250 call 09071512433 b4 050703 t&csbcm4235wc1n3xx . callcost 150ppm mobilesvary . max?7 . 50
 spam	free for 1st week ! no1 nokia tone 4 ur mob every week just txt nokia to 8007 get txting and tell ur mates www . getzed . co . uk pobox 36504 w45wq norm150p/tone 16+
@@ -104,16 +104,16 @@ spam	winner ! ! as a valued network customer you have been selected to receivea 
 To randomly shuffle the rows a dataset file use the syntax `shuffle.sh INPUT_DATASET_FILE OUTPUT_DATASET_FILE`
 
 ```bash
-$ ./shuffle.sh ./sms_train.tsv ./sms_train_s.tsv
+$ ./shuffle.sh ./sms_dataset_train.tsv ./sms_dataset_train_s.tsv
 
-[loretoparisi@:mbploreto script]$ head -n5 sms_train.tsv 
+[loretoparisi@:mbploreto script]$ head -n5 sms_dataset_train.tsv 
 spam	Urgent! call 09061749602 from Landline. Your complimentary 4* Tenerife Holiday or ?10
 spam	+449071512431 URGENT! This is the 2nd attempt to contact U!U have WON ?1250 CALL 09071512433 b4 050703 T&CsBCM4235WC1N3XX. callcost 150ppm mobilesvary. max?7. 50
 spam	FREE for 1st week! No1 Nokia tone 4 ur mob every week just txt NOKIA to 8007 Get txting and tell ur mates www.getzed.co.uk POBox 36504 W45WQ norm150p/tone 16+
 spam	Urgent! call 09066612661 from landline. Your complementary 4* Tenerife Holiday or ?10
 spam	WINNER!! As a valued network customer you have been selected to receivea ?900 prize reward! To claim call 09061701461. Claim code KL341. Valid 12 hours only.
 
-[loretoparisi@:mbploreto script]$ head -n5 sms_train_s.tsv 
+[loretoparisi@:mbploreto script]$ head -n5 sms_dataset_train_s.tsv 
 ham	Hi this is yijue
 ham	Huh i cant thk of more oredi how many pages do we have?
 ham	G.W.R

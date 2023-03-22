@@ -11,8 +11,8 @@
     var MODELS_ROOT = __dirname + '/models';
     var DATASET_ROOT = __dirname + '/dataset';
 
-    var TRAINFILE = process.env.TRAINFILE || DATASET_ROOT + '/sms_train.tsv' // train file
-    var TESTFILE = process.env.TESTFILE || DATASET_ROOT + '/sms_test.tsv' // test file
+    var TRAINFILE = process.env.TRAINFILE || DATASET_ROOT + '/sms_dataset_train.tsv' // train file
+    var TESTFILE = process.env.TESTFILE || DATASET_ROOT + '/sms_dataset_test.tsv' // test file
     var SERIALIZETO = process.env.SERIALIZETO || MODELS_ROOT + '/sms_model' // do not specify ext: 'bin' will be added
     var MODEL = process.env.MODEL || MODELS_ROOT + '/sms_model.bin' // model to load
 
