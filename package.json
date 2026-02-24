@@ -25,7 +25,11 @@
   "engines": {
     "node": "*"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "node examples/predict.js",
+    "build:docker": "bash build.sh",
+    "build:wasm": "make -C wasm wasm"
+  },
   "devDependencies": {},
   "keywords": [],
   "dependencies": {}
